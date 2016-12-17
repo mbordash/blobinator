@@ -100,4 +100,57 @@ class Blobinator_Admin {
 
 	}
 
+    /**
+     * Add an options page under the Settings submenu
+     *
+     * @since  1.0.0
+     */
+    public function add_blobinator_page() {
+        $this->plugin_screen_hook_suffix = add_management_page(
+            __( 'Analyze Blob', 'blobinator' ),
+            __( 'Analyze Blob', 'blobinator' ),
+            'manage_options',
+            $this->plugin_name,
+            array( $this, 'display_blobinator_page' )
+        );
+    }
+    /**
+     * Render the options page for plugin
+     *
+     * @since  1.0.0
+     */
+    public function display_blobinator_page() {
+        include_once 'partials/blobinator-analyze-display.php';
+    }
+
+    function process_blobinator_text() {
+
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_die( 'You are not allowed to be on this page.' );
+        }
+
+        check_admin_referer( 'ba_op_verify' );
+
+        if ( isset( $_POST['blobinator_text'] ) ) {
+
+            $textToAnalyze = sanitize_text_field($_POST['blobinator_text']);
+
+            // go to APPENDER!
+            // then display output to user
+            // this just returns the input as a query string for testing
+            // mjb
+
+            if ( $referer = wp_get_referer() ) {
+                echo $textToAnalyze;
+
+                $location =  $referer;
+                $location = add_query_arg( array( 'm' => $textToAnalyze ), $location );
+                wp_redirect( $location );
+            }
+
+        }
+
+        echo "here";
+    }
+
 }
