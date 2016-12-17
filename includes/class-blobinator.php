@@ -74,8 +74,6 @@ class Blobinator {
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
-		$this->define_public_hooks();
-
 	}
 
 	/**
@@ -86,7 +84,6 @@ class Blobinator {
 	 * - Blobinator_Loader. Orchestrates the hooks of the plugin.
 	 * - Blobinator_i18n. Defines internationalization functionality.
 	 * - Blobinator_Admin. Defines all hooks for the admin area.
-	 * - Blobinator_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -112,12 +109,6 @@ class Blobinator {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-blobinator-admin.php';
-
-		/**
-		 * The class responsible for defining all actions that occur in the public-facing
-		 * side of the site.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-blobinator-public.php';
 
 		$this->loader = new Blobinator_Loader();
 
@@ -153,24 +144,10 @@ class Blobinator {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_blobinator_page' );
+        $this->loader->add_action( 'admin_post_blobinator_analyze', $plugin_admin, 'process_blobinator_text' );
 
-	}
-
-	/**
-	 * Register all of the hooks related to the public-facing functionality
-	 * of the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function define_public_hooks() {
-
-		$plugin_public = new Blobinator_Public( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-	}
+    }
 
 	/**
 	 * Run the loader to execute all of the hooks with WordPress.

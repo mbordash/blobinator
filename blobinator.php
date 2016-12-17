@@ -42,6 +42,7 @@ function activate_blobinator() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-blobinator-deactivator.php
  */
+
 function deactivate_blobinator() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-blobinator-deactivator.php';
 	Blobinator_Deactivator::deactivate();
