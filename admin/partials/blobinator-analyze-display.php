@@ -11,6 +11,7 @@
  * @package    Blobinator
  * @subpackage Blobinator/admin/partials
  */
+
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
@@ -19,27 +20,27 @@
 
     <h2>Analyze a Blob of Text using the Blobinator</h2>
 
-    <?php
-
-    if ( isset( $_GET['m'] ) ) {
-
-    ?>
-
-    <div class='notice notice-success is-dismissible'><p><strong><?php echo esc_html($_GET['m']); ?></strong></p></div>
-
-    <?php
-    }
-    ?>
-
-
-    <form method="post" action="<?php echo admin_url( 'admin-post.php' ); ?>">
+    <form id="analyze-text-form" name="analyze-text-form" action="" method="post" class="form">
 
         <input type="hidden" name="action" value="blobinator_analyze" />
 
         <?php wp_nonce_field( 'ba_op_verify' ); ?>
 
-        Input text to analyze: <input type="text" name="blobinator_text" />
+        <p>
 
-        <?php echo get_submit_button('Submit'); ?>
+            <textarea cols="80" rows="10" class="large-text" id="blobinator_text" name="blobinator_text" placeholder="Input text to analyze"></textarea>
+
+        </p>
+
+        <p>
+
+            <button onClick="handleFormPost(); return false;" class="button" type="submit" id="submit-analyze-blob" name="submit-analyze-blob">Submit</button>
+        </p>
+
     </form>
+
+    <div id="spinner" class="spinner" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>
+
+    <div id="analyzed_text" class="notice notice-success is-dismissible inline hidden">This is where blobinator results will appear.</div>
+
 </div>
