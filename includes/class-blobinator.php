@@ -145,7 +145,7 @@ class Blobinator {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_blobinator_page' );
-        $this->loader->add_action( 'admin_post_blobinator_analyze', $plugin_admin, 'process_blobinator_text' );
+        $this->loader->add_action( 'wp_ajax_blobinator_analyze', $plugin_admin, 'process_blobinator_text' );
 
     }
 
@@ -186,7 +186,9 @@ class Blobinator {
 	 * @return    string    The version number of the plugin.
 	 */
 	public function get_version() {
+
 		return $this->version;
+
 	}
 
 }

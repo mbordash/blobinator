@@ -140,17 +140,16 @@ class Blobinator_Admin {
             // this just returns the input as a query string for testing
             // mjb
 
-            if ( $referer = wp_get_referer() ) {
-                echo $textToAnalyze;
+        } else {
 
-                $location =  $referer;
-                $location = add_query_arg( array( 'm' => $textToAnalyze ), $location );
-                wp_redirect( $location );
-            }
+            $textToAnalyze = "Nothing to Analyze";
 
         }
 
-        echo "here";
+        echo "Success: " . $textToAnalyze;
+
+        exit();
+
     }
 
 }
