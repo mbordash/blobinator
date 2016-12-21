@@ -57,6 +57,8 @@ function handleFormPost() {
 
     var data = jQuery('#analyze-text-form').serialize();
 
+    jQuery('#concepts_chart_title').html('<h2>Extracted Concepts</h2>');
+
     jQuery.ajax({
         type: 'post',
         url: ajaxurl,
@@ -64,14 +66,30 @@ function handleFormPost() {
         action: 'blobinator_analyze',
         cache: false,
         success: function(response){
-            console.log(response);
-            jQuery('#concepts').html(response).show();
+
+            var jsonResponse = jQuery.parseJSON(response);
+
+            console.log(jsonResponse);
+
+            var contentTable = '<table><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
+            for( var elem in jsonResponse ) {
+                contentTable  += '<tr><td>' + jsonResponse[elem]['text'] + '</td>';
+                contentTable  += '<td>' + ( Math.round(jsonResponse[elem]['relevance'] * 100 )) + '%</td>';
+                contentTable  += '<td><a target="_blank" href="' + jsonResponse[elem]['dbpedia'] + '">dbpedia</a>, ' +
+                    '                   <a target="_blank" href="' + jsonResponse[elem]['freebase'] + '">freebase</a>, ' +
+                    '                   <a target="_blank" href="' + jsonResponse[elem]['opencyc'] + '">opencyc</a></td></tr>';
+            }
+            contentTable += '</tbody></table>';
+
+            jQuery('#concepts').html( contentTable ).show();
+
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
             console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
+
     });
 
     jQuery.ajax({
@@ -86,6 +104,8 @@ function handleFormPost() {
 
             console.log(jsonResponse);
 
+            jQuery('#keywords_chart_title').html('<h2>Extracted Keywords</h2>');
+
             // get it into the form required by `nvd3`
             input = [{ key: "Keyword Relevance", values: jsonResponse }]
 
@@ -94,16 +114,17 @@ function handleFormPost() {
                 var chart = nv.models.multiBarHorizontalChart()
                     .x(function(d) {return d.text})
                     .y(function(d) {return d.relevance})
+                    .barColor(d3.scale.category20().range())
                     .margin({top: 30, right: 20, bottom: 50, left: 175})
                     .height(height)
                     .showControls(false)
-                   // .tooltips(true)
+                    .stacked(true)
                     .showValues(true);
 
                 chart.yAxis
-                    .tickFormat(d3.format(',.2f'));
+                    .tickFormat(d3.format('%'));
 
-                chart.x2Axis;
+                chart.yAxis.axisLabel('Confidence');
 
                 d3.select('#keywords_chart svg')
                     .datum(input)
@@ -125,21 +146,30 @@ function handleFormPost() {
     });
 
     jQuery.ajax({
+
         type: 'post',
         url: ajaxurl,
         data: data + '&service=sentiment',
         action: 'blobinator_analyze',
         cache: false,
         success: function(response){
-            console.log(response);
-            jQuery('#sentiment').html(response).show();
+
+            var jsonResponse = jQuery.parseJSON(response);
+
+            console.log(jsonResponse);
+
+            jQuery('#overall_tone').html( '<h2>Detected Tone: Leaning ' + jsonResponse[2] + ' (' + jsonResponse[1] + ')' ).show();
+
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
             console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
+
     });
+
+
 
     jQuery.ajax({
         type: 'post',
@@ -148,15 +178,53 @@ function handleFormPost() {
         action: 'blobinator_analyze',
         cache: false,
         success: function(response){
+
             console.log(response);
-            jQuery('#emotion').html(response).show();
-            jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
+
+            var jsonResponse = jQuery.parseJSON(response);
+
+            var jsArr = [];
+
+            var counter = 0;
+            for( var elem in jsonResponse ) {
+                jsArr[counter] = {
+                    'label': elem,
+                    'value': jsonResponse[elem]
+                };
+                counter++;
+            }
+
+            jQuery('#emotion_chart_title').html('<h2>Emotions Detected</h2>');
+
+            nv.addGraph(function() {
+
+                var width = 300;
+                var height = 300;
+
+                var chart = nv.models.pie()
+
+                    .x(function(d) {return d.label})
+                    .y(function(d) {return d.value})
+                    .width(width)
+                    .height(height)
+                    .labelThreshold(0.01)
+                    .labelSunbeamLayout(true);
+
+
+                d3.select("#emotion_chart svg")
+                    .datum([jsArr])
+                    .transition().duration(1200)
+                    .call(chart)
+                    .style({ 'height': height });
+
+            });
         },
         error: function(response) {
             console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
+
 
 
     return false;

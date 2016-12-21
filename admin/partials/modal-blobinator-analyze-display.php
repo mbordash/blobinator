@@ -28,10 +28,22 @@
 
     </form>
 
-    <div id="spinner" class="spinner is-inactive" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>
 
+    <div id="overall_tone"></div>
+
+    <div id="emotion_chart_title"></div>
+    <div id="emotion_chart">
+        <svg></svg>
+    </div>
+
+    <div id="keywords_chart_title"></div>
     <div id="keywords_chart">
         <svg></svg>
     </div>
+
+    <div id="concepts_chart_title"></div>
+    <div id="concepts"></div>
+
+    <div id="spinner" class="spinner is-inactive" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>
 
 </div>
