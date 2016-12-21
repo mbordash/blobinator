@@ -71,23 +71,5 @@ function run_blobinator() {
 	$plugin = new Blobinator();
 	$plugin->run();
 
-
-    function blobinator_add_button( $plugin_array ) {
-
-        $plugin_array['blobinator'] = plugin_dir_url( __FILE__ ) . 'admin/js/blobinator-admin.js';
-        return $plugin_array;
-
-    }
-
-    function blobinator_register_button( $buttons ) {
-
-        array_push( $buttons, 'blobinator' );
-        return $buttons;
-
-    }
-
-    add_filter( 'mce_external_plugins', 'blobinator_add_button' );
-    add_filter( 'mce_buttons', 'blobinator_register_button' );
-
 }
 run_blobinator();
