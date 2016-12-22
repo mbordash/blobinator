@@ -35,12 +35,20 @@
         <p>
 
             <button onClick="handleFormPost(); return false;" class="button" type="submit" id="submit-analyze-blob" name="submit-analyze-blob">Submit</button>
+
         </p>
 
     </form>
 
-    <div id="spinner" class="spinner" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>
 
-    <div id="analyzed_text" class="notice notice-success is-dismissible inline hidden">This is where blobinator results will appear.</div>
+    <div id="spinner" class="spinner is-inactive" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>
+
+    <div id="sentiment" class="notice notice-success inline hidden"></div>
+
+    <div id="emotion" class="notice notice-success inline hidden"></div>
+
+    <div id="concepts" class="notice notice-success inline hidden"></div>
+
+    <div id="keywords" class="notice notice-success inline hidden"></div>
 
 </div>
