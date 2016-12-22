@@ -21,7 +21,14 @@ jQuery(function($) {
                     }
                     var return_text = '';
                     return_text = selected_text;
-                    tb_show('Blobinator Content Analysis', '#TB_inline?height=700&amp;width=744&amp;inlineId=modal-blobinator-results');
+
+                    old_tb_position = tb_position;
+                    tb_position = function(){
+                        $("#TB_window").css({marginLeft: '-' + parseInt((TB_WIDTH / 2),10) + 'px', width: TB_WIDTH + 'px', height: TB_HEIGHT + 'px', marginTop: '-' + parseInt((TB_HEIGHT / 2),10) + 'px'});
+                    };
+
+                    tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
+
                     $('#blobinator_text_to_analyze').val(return_text);
                     handleFormPost();
                 });
@@ -48,7 +55,6 @@ jQuery(function($) {
     }
 });
 
-
 function handleFormPost() {
 
     jQuery('#analyzed_text').html('').hide();
@@ -57,7 +63,7 @@ function handleFormPost() {
 
     var data = jQuery('#analyze-text-form').serialize();
 
-    jQuery('#concepts_chart_title').html('<h2>Extracted Concepts</h2>');
+    jQuery('#concepts_chart_title').html('<h4>Concepts Extracted</h4>');
 
     jQuery.ajax({
         type: 'post',
@@ -71,7 +77,7 @@ function handleFormPost() {
 
             console.log(jsonResponse);
 
-            var contentTable = '<table><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
+            var contentTable = '<table class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
             for( var elem in jsonResponse ) {
                 contentTable  += '<tr><td>' + jsonResponse[elem]['text'] + '</td>';
                 contentTable  += '<td>' + ( Math.round(jsonResponse[elem]['relevance'] * 100 )) + '%</td>';
@@ -103,8 +109,6 @@ function handleFormPost() {
             var jsonResponse = jQuery.parseJSON(response);
 
             console.log(jsonResponse);
-
-            jQuery('#keywords_chart_title').html('<h2>Extracted Keywords</h2>');
 
             // get it into the form required by `nvd3`
             input = [{ key: "Keyword Relevance", values: jsonResponse }]
@@ -158,7 +162,49 @@ function handleFormPost() {
 
             console.log(jsonResponse);
 
-            jQuery('#overall_tone').html( '<h2>Detected Tone: Leaning ' + jsonResponse[2] + ' (' + jsonResponse[1] + ')' ).show();
+            var arraySize = jQuery(jsonResponse).size();
+            var sentimentText;
+            var sentimentScore;
+
+            if ( arraySize === 3 ) {
+                sentimentText = 'mixed to slightly ' + jsonResponse[2];
+                sentimentScore = jsonResponse[1];
+            } else {
+                sentimentText = jsonResponse[1];
+                sentimentScore = jsonResponse[0];
+            }
+            
+            toneAnalysis = '<h2>We detected a <strong>' + sentimentText + '</strong> tone when analyzing your content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+
+
+            jQuery('#overall_tone').html( toneAnalysis ).show();
+
+            nv.addGraph(function() {
+
+                var chart = nv.models.discreteBarChart()
+
+                    .x(function(d) {return d.label})
+                    .y(function(d) {return d.value})
+                    .forceY([-1,1])
+                    .showValues(true);
+
+
+                d3.select("#sentiment_chart svg")
+                    .datum(sentimentData())
+                    .transition().duration(1200)
+                    .call(chart);
+            });
+
+            function sentimentData() {
+                return  [{
+                    key: "Sentiment",
+                    values: [{
+                        "label": "Content Selection",
+                        "value": sentimentScore
+                    }]
+                }]
+            }
+
 
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
@@ -194,8 +240,6 @@ function handleFormPost() {
                 counter++;
             }
 
-            jQuery('#emotion_chart_title').html('<h2>Emotions Detected</h2>');
-
             nv.addGraph(function() {
 
                 var width = 300;
@@ -207,6 +251,8 @@ function handleFormPost() {
                     .y(function(d) {return d.value})
                     .width(width)
                     .height(height)
+                    .showLabels(true)
+                    .labelType("key")
                     .labelThreshold(0.01)
                     .labelSunbeamLayout(true);
 
@@ -224,8 +270,6 @@ function handleFormPost() {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
-
-
 
     return false;
 };

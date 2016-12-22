@@ -28,18 +28,62 @@
 
     </form>
 
+    <div id="poststuff">
 
-    <div id="overall_tone"></div>
+        <div id="post-body" class="metabox-holder columns-2">
 
-    <div id="emotion_chart_title"></div>
-    <div id="emotion_chart">
-        <svg></svg>
+            <div id="post-body-content">
+
+                <div class="postbox">
+
+                    <h2><span><?php esc_attr_e( 'Emotions Detected', 'wp_admin_style' ); ?></span></h2>
+
+                    <div class="inside">
+                        <div id="emotion_chart">
+                            <svg id="emotion_chart_svg"></svg>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div id="postbox-container-1" class="postbox-container">
+
+                <div class="postbox">
+
+                    <h2><span><?php esc_attr_e( 'Tone Analysis', 'wp_admin_style' ); ?></span></h2>
+
+                    <div class="inside">
+                        <div id="overall_tone"></div>
+
+                        <div id="sentiment_chart">
+                            <svg></svg>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div id="keywords_chart_title"></div>
-    <div id="keywords_chart">
-        <svg></svg>
+    <br class="clear">
+
+    <h4><span><?php esc_attr_e( 'Keywords Extracted', 'wp_admin_style' ); ?></span></h4>
+
+    <div class="inside">
+        <div id="keywords_chart">
+            <svg></svg>
+        </div>
+
     </div>
+
+
+
 
     <div id="concepts_chart_title"></div>
     <div id="concepts"></div>
