@@ -14,9 +14,9 @@
 
 ?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+<div id="dialog-blobinator-error" class="hidden">Error</div>
 
-<div id='modal-blobinator-results' class="wrap hidden">
+<div id="modal-blobinator-results" class="wrap hidden">
 
     <form id="analyze-text-form" name="analyze-text-form" action="" method="post" class="form">
 
@@ -81,9 +81,6 @@
         </div>
 
     </div>
-
-
-
 
     <div id="concepts_chart_title"></div>
     <div id="concepts"></div>

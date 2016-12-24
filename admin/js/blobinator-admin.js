@@ -1,7 +1,5 @@
 jQuery(function($) {
 
-
-
     if (typeof(tinyMCE) != "undefined") {
 
         tinyMCE.create('tinymce.plugins.Blobinator', {
@@ -26,6 +24,24 @@ jQuery(function($) {
                     tb_position = function(){
                         $("#TB_window").css({marginLeft: '-' + parseInt((TB_WIDTH / 2),10) + 'px', width: TB_WIDTH + 'px', height: TB_HEIGHT + 'px', marginTop: '-' + parseInt((TB_HEIGHT / 2),10) + 'px'});
                     };
+
+                    if ( !return_text || return_text.length === 0 ) {
+
+                        jQuery('#dialog-blobinator-error').html('<p>You haven\'t entered any content yet. Please enter some content before trying to analyze.</p>');
+
+                        tb_show('Blobinator Error', '#TB_inline?height=100&amp;width=400&amp;inlineId=dialog-blobinator-error');
+
+                        return false;
+                    }
+
+                    if ( return_text && return_text.length <= 100 ) {
+
+                        jQuery('#dialog-blobinator-error').html('<p>You haven\'t entered enough content. Please enter some additional content before trying to analyze.</p>');
+
+                        tb_show('Blobinator Error', '#TB_inline?height=100&amp;width=400&amp;inlineId=dialog-blobinator-error');
+
+                        return false;
+                    }
 
                     tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
 
@@ -56,8 +72,6 @@ jQuery(function($) {
 });
 
 function handleFormPost() {
-
-    jQuery('#analyzed_text').html('').hide();
 
     jQuery('#spinner').removeClass('is-inactive').addClass('is-active');
 
