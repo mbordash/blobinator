@@ -110,6 +110,11 @@ class Blobinator {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-blobinator-admin.php';
 
+        /**
+         * The class responsible for getting and setting all blobinator settings.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-blobinator-settings.php';
+
 		$this->loader = new Blobinator_Loader();
 
 	}
@@ -146,7 +151,7 @@ class Blobinator {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
         // this is for loading the plugin in the main menu under Tools
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_blobinator_page' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_blobinator_settings_page' );
 
         // load an action to handle the incoming ajax request for text analysis
         $this->loader->add_action( 'wp_ajax_blobinator_analyze', $plugin_admin, 'process_blobinator_text' );
