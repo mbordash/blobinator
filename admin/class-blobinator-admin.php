@@ -22,6 +22,8 @@
  */
 class Blobinator_Admin {
 
+    protected $api = 'http://wp-blobinator:8080/api/blobinator';
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -141,263 +143,41 @@ class Blobinator_Admin {
 
         if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
 
-            $textToAnalyze = sanitize_text_field($_POST['blobinator_text_to_analyze']);
+            $textToAnalyze = urlencode(sanitize_text_field($_POST['blobinator_text_to_analyze']));
+            $service = sanitize_text_field($_POST['service']);
 
 
-            // this should be proxied through my server, testing for now.
-            // setup post data for appender
+            $postdata = http_build_query(
+                array(
+                    'blobinator_text_to_analyze' => $textToAnalyze,
+                    'service' => $service
+                )
+            );
 
-            switch ($_POST['service']) {
+            $opts = array('http' =>
+                array(
+                    'method'  => 'POST',
+                    'header'  => 'Content-type: application/x-www-form-urlencoded',
+                    'content' => $postdata
+                )
+            );
 
-                case "concepts" :
+            $context  = stream_context_create($opts);
 
-                    $appenderToCall = "watson-concept-insights";
+            $response = file_get_contents($this->api, false, $context);
 
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
+            if( $response ) {
 
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
+                echo $response;
+                error_log($response);
 
-                    $caOutput = curl_exec($ch);
+            } else {
 
-                    $resultsObject = json_decode($caOutput);
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-concept-insights'}->concepts as $concepts ) {
-                        $counter++;
-                        $caResponse[] = $concepts;
-
-                        if ($counter >= 20) {
-                            break;
-                        }
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-                case "sentiment" :
-                    $appenderToCall = "watson-sentiment";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $resultsObject = json_decode($caOutput);
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-sentiment'}->docSentiment as $sentiment ) {
-                        $counter++;
-                        $caResponse[] = $sentiment;
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-
-                case "keywords" :
-                    $appenderToCall = "watson-keywords";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $resultsObject = json_decode($caOutput);
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-keywords'}->keywords as $keywords ) {
-                        $counter++;
-                        $caResponse[] = $keywords;
-                        if( $counter >= 20 ) {
-                            break;
-                        }
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-                case "emotion" :
-                    $appenderToCall = "watson-emotion";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $caResponse = json_decode($caOutput);
-
-                    $caResponse = $caResponse->details->appenders->{'watson-emotion'}->docEmotions;
-
-                    curl_close($ch);
-
-                    break;
-
-                default:
-                    wp_die("Failed to include service.");
+                echo "Something went wrong.";
 
             }
-
-
-        } else {
-
-            $caResponse = "Nothing to Analyze";
-
         }
 
-        echo json_encode($caResponse);
-        error_log(json_encode($caResponse));
 
         exit();
 
