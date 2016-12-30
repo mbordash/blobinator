@@ -75,14 +75,22 @@
 
     <h4><span><?php esc_attr_e( 'Keywords Extracted', 'wp_admin_style' ); ?></span></h4>
 
+    <div id="blobinator_add_keywords_as_tags_div">
+        <button class="hidden" onClick="blobinator_add_keywords_to_post_tags(); return false;" class="button" type="submit" id="blobinator-add-keywords-as-tags" name="blobinator-add-keywords-as-tags">Add Keywords to Post Tags</button>
+    </div>
+
     <div class="inside">
         <div id="keywords_chart">
             <svg></svg>
         </div>
-
     </div>
 
-    <div id="concepts_chart_title"></div>
+    <h4><span><?php esc_attr_e( 'Concepts Extracted', 'wp_admin_style' ); ?></span></h4>
+
+    <div id="blobinator_add_concepts_as_tags_div">
+        <button style="margin-bottom: 5px" class="hidden" onClick="blobinator_add_concepts_to_post_tags(); return false;" class="button" type="submit" id="blobinator-add-concepts-as-tags" name="blobinator-add-concepts-as-tags">Add Concepts to Post Tags</button>
+    </div>
+
     <div id="concepts"></div>
 
     <div id="spinner" class="spinner is-inactive" style="float:none; width:100%; height: auto; padding:10px 0 10px 50px; background-position: center center;"></div>

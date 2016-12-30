@@ -46,7 +46,7 @@ jQuery(function($) {
                     tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
 
                     $('#blobinator_text_to_analyze').val(return_text);
-                    handleFormPost();
+                    blobinatorHandleFormPost();
                 });
             },
 
@@ -71,13 +71,43 @@ jQuery(function($) {
     }
 });
 
-function handleFormPost() {
+function blobinator_add_concepts_to_post_tags() {
+
+    var items = [];
+
+    jQuery('#blobinator_concepts  tbody tr td:nth-child(1)').each( function(){
+        items.push( jQuery(this).text() );
+    });
+
+    var items = jQuery.unique( items );
+
+    jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+
+    jQuery('#blobinator_add_concepts_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
+}
+
+function blobinator_add_keywords_to_post_tags() {
+
+    var items = [];
+
+    d3.selectAll('#keywords_chart svg text').each( function() {
+
+        items.push( jQuery(this).text() );
+
+    });
+
+    var items = jQuery.unique( items );
+
+    jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+
+    jQuery('#blobinator_add_keywords_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
+}
+
+function blobinatorHandleFormPost() {
 
     jQuery('#spinner').removeClass('is-inactive').addClass('is-active');
 
     var data = jQuery('#analyze-text-form').serialize();
-
-    jQuery('#concepts_chart_title').html('<h4>Concepts Extracted</h4>');
 
     jQuery.ajax({
         type: 'post',
@@ -91,7 +121,7 @@ function handleFormPost() {
 
             console.log(jsonResponse);
 
-            var contentTable = '<table class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
+            var contentTable = '<table id="blobinator_concepts" class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
             for( var elem in jsonResponse ) {
                 contentTable  += '<tr><td>' + jsonResponse[elem]['text'] + '</td>';
                 contentTable  += '<td>' + ( Math.round(jsonResponse[elem]['relevance'] * 100 )) + '%</td>';
@@ -102,6 +132,8 @@ function handleFormPost() {
             contentTable += '</tbody></table>';
 
             jQuery('#concepts').html( contentTable ).show();
+
+            jQuery('#blobinator-add-concepts-as-tags').show();
 
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
@@ -154,6 +186,8 @@ function handleFormPost() {
                 return chart;
 
             });
+
+            jQuery('#blobinator-add-keywords-as-tags').show();
 
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
