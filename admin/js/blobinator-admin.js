@@ -90,9 +90,17 @@ function blobinator_add_keywords_to_post_tags() {
 
     var items = [];
 
+    var minTagSize = 4;
+
     d3.selectAll('#keywords_chart svg text').each( function() {
 
-        items.push( jQuery(this).text() );
+        var tag = jQuery(this).text();
+
+        if ( tag.length >= minTagSize ) {
+
+            items.push( jQuery(this).text() );
+
+        }
 
     });
 
@@ -157,7 +165,7 @@ function blobinatorHandleFormPost() {
             console.log(jsonResponse);
 
             // get it into the form required by `nvd3`
-            input = [{ key: "Keyword Relevance", values: jsonResponse }]
+            input = [{ key: '', values: jsonResponse }]
 
             nv.addGraph(function() {
                 var height = 500;
@@ -167,14 +175,13 @@ function blobinatorHandleFormPost() {
                     .barColor(d3.scale.category20().range())
                     .margin({top: 30, right: 20, bottom: 50, left: 175})
                     .height(height)
+                    .showLegend(false)
                     .showControls(false)
                     .stacked(true)
-                    .showValues(true);
+                    .showValues(false);
 
                 chart.yAxis
                     .tickFormat(d3.format('%'));
-
-                chart.yAxis.axisLabel('Confidence');
 
                 d3.select('#keywords_chart svg')
                     .datum(input)
