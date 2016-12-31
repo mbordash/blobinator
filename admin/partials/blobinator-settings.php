@@ -15,7 +15,6 @@
 $blobinator_settings = new Blobinator_Settings;
 $blobinator_current_key = $blobinator_settings->blobinator_get_current_key();
 
-
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
