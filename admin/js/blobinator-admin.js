@@ -9,7 +9,7 @@ jQuery(function($) {
                 ed.addButton('blobinator', {
                     title: 'Blobinator',
                     cmd: 'blobinator',
-                    icon: 'charmap'
+                    image : url + '/images/blobinator_button.png'
                 });
 
                 ed.addCommand('blobinator', function () {

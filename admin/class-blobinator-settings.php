@@ -18,7 +18,7 @@ class Blobinator_Settings
      * @param      string    $version    The version of this plugin.
      */
     public function __construct( ) {
-        
+
     }
 
     private function guidv4($data) {
