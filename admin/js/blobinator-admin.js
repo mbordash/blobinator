@@ -1,7 +1,5 @@
 jQuery(function($) {
 
-
-
     if (typeof(tinyMCE) != "undefined") {
 
         tinyMCE.create('tinymce.plugins.Blobinator', {
@@ -11,7 +9,7 @@ jQuery(function($) {
                 ed.addButton('blobinator', {
                     title: 'Blobinator',
                     cmd: 'blobinator',
-                    icon: 'charmap'
+                    image : url + '/images/blobinator_button.png'
                 });
 
                 ed.addCommand('blobinator', function () {
@@ -27,10 +25,28 @@ jQuery(function($) {
                         $("#TB_window").css({marginLeft: '-' + parseInt((TB_WIDTH / 2),10) + 'px', width: TB_WIDTH + 'px', height: TB_HEIGHT + 'px', marginTop: '-' + parseInt((TB_HEIGHT / 2),10) + 'px'});
                     };
 
+                    if ( !return_text || return_text.length === 0 ) {
+
+                        jQuery('#dialog-blobinator-error').html('<p>You haven\'t entered any content yet. Please enter some content before trying to analyze.</p>');
+
+                        tb_show('Blobinator Error', '#TB_inline?height=100&amp;width=400&amp;inlineId=dialog-blobinator-error');
+
+                        return false;
+                    }
+
+                    if ( return_text && return_text.length <= 100 ) {
+
+                        jQuery('#dialog-blobinator-error').html('<p>You haven\'t entered enough content. Please enter some additional content before trying to analyze.</p>');
+
+                        tb_show('Blobinator Error', '#TB_inline?height=100&amp;width=400&amp;inlineId=dialog-blobinator-error');
+
+                        return false;
+                    }
+
                     tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
 
                     $('#blobinator_text_to_analyze').val(return_text);
-                    handleFormPost();
+                    blobinatorHandleFormPost();
                 });
             },
 
@@ -44,7 +60,7 @@ jQuery(function($) {
                     author: 'Michael Bordash',
                     authorurl: 'http://www.blobinator.com',
                     infourl: 'http://www.blobinator.com',
-                    version: "0.1"
+                    version: "1.0.0"
                 };
             }
         });
@@ -55,15 +71,53 @@ jQuery(function($) {
     }
 });
 
-function handleFormPost() {
+function blobinator_add_concepts_to_post_tags() {
 
-    jQuery('#analyzed_text').html('').hide();
+    var items = [];
+
+    jQuery('#blobinator_concepts  tbody tr td:nth-child(1)').each( function(){
+        items.push( jQuery(this).text() );
+    });
+
+    var items = jQuery.unique( items );
+
+    jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+    jQuery('#new-tag-product_tag').val(jQuery('#new-tag-product_tag').val() + items.join(', '));
+
+    jQuery('#blobinator_add_concepts_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
+}
+
+function blobinator_add_keywords_to_post_tags() {
+
+    var items = [];
+
+    var minTagSize = 4;
+
+    d3.selectAll('#keywords_chart svg text').each( function() {
+
+        var tag = jQuery(this).text();
+
+        if ( tag.length >= minTagSize ) {
+
+            items.push( jQuery(this).text() );
+
+        }
+
+    });
+
+    var items = jQuery.unique( items );
+
+    jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+    jQuery('#new-tag-product_tag').val(jQuery('#new-tag-product_tag').val() + items.join(', '));
+
+    jQuery('#blobinator_add_keywords_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
+}
+
+function blobinatorHandleFormPost() {
 
     jQuery('#spinner').removeClass('is-inactive').addClass('is-active');
 
     var data = jQuery('#analyze-text-form').serialize();
-
-    jQuery('#concepts_chart_title').html('<h4>Concepts Extracted</h4>');
 
     jQuery.ajax({
         type: 'post',
@@ -71,13 +125,17 @@ function handleFormPost() {
         data: data + '&service=concepts',
         action: 'blobinator_analyze',
         cache: false,
-        success: function(response){
+        success: function(response) {
+
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
             var jsonResponse = jQuery.parseJSON(response);
 
-            console.log(jsonResponse);
-
-            var contentTable = '<table class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
+            var contentTable = '<table id="blobinator_concepts" class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
             for( var elem in jsonResponse ) {
                 contentTable  += '<tr><td>' + jsonResponse[elem]['text'] + '</td>';
                 contentTable  += '<td>' + ( Math.round(jsonResponse[elem]['relevance'] * 100 )) + '%</td>';
@@ -89,11 +147,13 @@ function handleFormPost() {
 
             jQuery('#concepts').html( contentTable ).show();
 
+            jQuery('#blobinator-add-concepts-as-tags').show();
+
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
-            jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
+            jQuery('#dialog-blobinator-error').html(response.message);
+            return false;
         }
 
     });
@@ -106,12 +166,16 @@ function handleFormPost() {
         cache: false,
         success: function(response){
 
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
+
             var jsonResponse = jQuery.parseJSON(response);
 
-            console.log(jsonResponse);
-
             // get it into the form required by `nvd3`
-            input = [{ key: "Keyword Relevance", values: jsonResponse }]
+            input = [{ key: '', values: jsonResponse }]
 
             nv.addGraph(function() {
                 var height = 500;
@@ -121,14 +185,13 @@ function handleFormPost() {
                     .barColor(d3.scale.category20().range())
                     .margin({top: 30, right: 20, bottom: 50, left: 175})
                     .height(height)
+                    .showLegend(false)
                     .showControls(false)
                     .stacked(true)
-                    .showValues(true);
+                    .showValues(false);
 
                 chart.yAxis
                     .tickFormat(d3.format('%'));
-
-                chart.yAxis.axisLabel('Confidence');
 
                 d3.select('#keywords_chart svg')
                     .datum(input)
@@ -141,10 +204,11 @@ function handleFormPost() {
 
             });
 
+            jQuery('#blobinator-add-keywords-as-tags').show();
+
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
@@ -158,9 +222,13 @@ function handleFormPost() {
         cache: false,
         success: function(response){
 
-            var jsonResponse = jQuery.parseJSON(response);
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
-            console.log(jsonResponse);
+            var jsonResponse = jQuery.parseJSON(response);
 
             var arraySize = jQuery(jsonResponse).size();
             var sentimentText;
@@ -209,7 +277,6 @@ function handleFormPost() {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
 
@@ -225,7 +292,11 @@ function handleFormPost() {
         cache: false,
         success: function(response){
 
-            console.log(response);
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
             var jsonResponse = jQuery.parseJSON(response);
 
@@ -266,7 +337,6 @@ function handleFormPost() {
             });
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
