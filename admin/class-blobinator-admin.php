@@ -22,6 +22,11 @@
  */
 class Blobinator_Admin {
 
+    protected $api_host = 'https://www.blobinator.com';
+    //protected $api_host = 'http://wp-blobinator:8080';
+    protected $api_path = '/api/blobinator';
+    protected $api_manager_path = '/';
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -49,8 +54,8 @@ class Blobinator_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->plugin_name  = $plugin_name;
+		$this->version      = $version;
 
 	}
 
@@ -75,6 +80,7 @@ class Blobinator_Admin {
 
         wp_enqueue_style( $this->plugin_name . 'nvd3', plugin_dir_url( __FILE__ ) . 'css/nv.d3.min.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-admin.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name . '-jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
 
     }
 
@@ -100,324 +106,101 @@ class Blobinator_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-d3', plugin_dir_url( __FILE__ ) . 'js/d3.v3.min.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-nvd3', plugin_dir_url( __FILE__ ) . 'js/nv.d3.min.js', array( $this->plugin_name . '-d3' ), $this->version, true );
+        wp_enqueue_script( 'jquery-ui-dialog' );
+
 	}
 
-
-
-    /**
-     * Add an options page under the Tools submenu
-     *
-     * @since  1.0.0
-     */
-    public function add_blobinator_page() {
-        $this->plugin_screen_hook_suffix = add_management_page(
-            __( 'Analyze Blob', 'blobinator' ),
-            __( 'Analyze Blob', 'blobinator' ),
-            'manage_options',
-            $this->plugin_name,
-            array( $this, 'display_blobinator_page' )
-        );
-    }
-
-    /**
-     * Render the options page for plugin
-     *
-     * @since  1.0.0
-     */
-    public function display_blobinator_page() {
-        include_once 'partials/blobinator-analyze-display.php';
-    }
-
-    public function process_blobinator_text() {
-
-        if ( !current_user_can( 'manage_options' ) ) {
-            wp_die( 'You are not allowed to be on this page.' );
-        }
-
-        check_admin_referer( 'ba_op_verify' );
-
-        if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
-
-            $textToAnalyze = sanitize_text_field($_POST['blobinator_text_to_analyze']);
-
-
-            // this should be proxied through my server, testing for now.
-            // setup post data for appender
-
-            switch ($_POST['service']) {
-
-                case "concepts" :
-
-                    $appenderToCall = "watson-concept-insights";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $resultsObject = json_decode($caOutput);
-
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-concept-insights'}->concepts as $concepts ) {
-                        $counter++;
-                        $caResponse[] = $concepts;
-
-                        if ($counter >= 20) {
-                            break;
-                        }
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-                case "sentiment" :
-                    $appenderToCall = "watson-sentiment";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $resultsObject = json_decode($caOutput);
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-sentiment'}->docSentiment as $sentiment ) {
-                        $counter++;
-                        $caResponse[] = $sentiment;
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-
-                case "keywords" :
-                    $appenderToCall = "watson-keywords";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $resultsObject = json_decode($caOutput);
-
-                    $caResponse = array();
-
-                    $counter = 0;
-                    foreach( $resultsObject->details->appenders->{'watson-keywords'}->keywords as $keywords ) {
-                        $counter++;
-                        $caResponse[] = $keywords;
-                        if( $counter >= 20 ) {
-                            break;
-                        }
-                    }
-
-                    curl_close($ch);
-
-                    break;
-
-                case "emotion" :
-                    $appenderToCall = "watson-emotion";
-
-                    $postData =  json_encode(array(
-                        'config' => array(
-                            'orgId' => 'go4ZwT',
-                            'documentId' => 'document-01',
-                            'options' => array(
-                                'appenders' => array(
-                                    $appenderToCall
-                                )
-                            )
-                        ),
-                        'details' => array(
-                            'name' => 'text-content',
-                            'sources' => array(
-                                array(
-                                    'id' => 'document-01',
-                                    'type' => 'text',
-                                    'content' => array(
-                                        'text' => $textToAnalyze
-                                    )
-                                )
-                            )
-                        )
-                    ));
-
-                    // execute call to cognitive appender
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://ca-qa1-ui.adm01.com/service/1.0/appender/go4ZwT/command/process-document');
-                    // curl_setopt($ch, CURLOPT_URL, 'https://dev.api.ibm.com/appender/test/service/1.0/appender/go4ZwT/command/process-document');
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                        'Content-Type: application/json',
-                        'Authorization: Bearer 83a9c7fb-9b64-4df3-8cd2-58df3b26eabe',
-                        'Cache-Control: no-cache',
-                        'x-ibm-client-id: cd3ef4b8-4bc4-40a5-8c54-9d9ccb862bd6',
-                        'x-ibm-client-secret: bN0wR8rL0jN5kD1bA3cE0oX6iP8wF7bK4pO4fO6uT6wH8yC5yW'
-                    ));
-
-                    $caOutput = curl_exec($ch);
-
-                    $caResponse = json_decode($caOutput);
-
-                    $caResponse = $caResponse->details->appenders->{'watson-emotion'}->docEmotions;
-
-                    curl_close($ch);
-
-                    break;
-
-                default:
-                    wp_die("Failed to include service.");
-
-            }
-
-
-        } else {
-
-            $caResponse = "Nothing to Analyze";
-
-        }
-
-        echo json_encode($caResponse);
-        error_log(json_encode($caResponse));
-
-        exit();
-
-    }
-
-    function blobinator_add_button( $plugin_array ) {
+    public function blobinator_add_button( $plugin_array ) {
 
         $plugin_array['blobinator'] = plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js';
         return $plugin_array;
 
     }
 
-    function blobinator_register_button( $buttons ) {
+    public function blobinator_register_button( $buttons ) {
 
         array_push( $buttons, 'blobinator' );
         return $buttons;
 
     }
 
-    function blobinator_create_results_div( ) {
+    public function blobinator_create_results_div( ) {
 
         include_once 'partials/modal-blobinator-analyze-display.php';
+
+    }
+
+    /**
+     * Handle ajax request for text processing and display
+     *
+     * @since  1.0.0
+     */
+    public function blobinator_process_text() {
+
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_die( 'You are not allowed to be on this page.' );
+        }
+
+        //get and check API key exists, pass key along server side request
+        $blobinatorOptions = get_option('blobinator_content_analyzer_-_free_data');
+        $blobinatorApiKey = $blobinatorOptions['api_key'];
+        $blobinatorApiEmail = $blobinatorOptions['activation_email'];
+        $blobinatorProductId = get_option('blobinator_content_analyzer_-_free_product_id');
+        $blobinatorInstanceId = get_option('blobinator_content_analyzer_-_free_instance');
+
+        if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
+
+            $response_array['status'] = "error";
+            $response_array['message'] = "Your License Key for Blobinator is not set. Please go to Settings > Blobinator Content Analyzer - Free API Key Activation to set your key first.";
+
+            header('Content-type: application/json');
+            echo json_encode($response_array);
+
+            wp_die();
+
+        }
+
+        check_admin_referer( 'ba_op_verify' );
+
+        if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
+
+            $textToAnalyze = urlencode(sanitize_text_field($_POST['blobinator_text_to_analyze']));
+            $service = sanitize_text_field($_POST['service']);
+
+
+            $requestBody = array(
+                'blobinator_text_to_analyze' => $textToAnalyze,
+                'service' => $service,
+                'blobinator_api_key' => $blobinatorApiKey,
+                'blobinator_activation_email' => $blobinatorApiEmail,
+                'blobinator_product_id' => $blobinatorProductId,
+                'blobinator_instance_id' => $blobinatorInstanceId
+            );
+
+            $opts = array(
+                'body' => $requestBody,
+                'headers'  => 'Content-type: application/x-www-form-urlencoded'
+            );
+
+            $response = wp_remote_post($this->api_host . $this->api_path, $opts);
+
+            if( $response['response']['code'] == 200 ) {
+
+                echo $response['body'];
+                error_log($response['body']);
+
+            } else {
+
+                $response_array['status'] = "error";
+                $response_array['message'] = "Something went wrong with this request. Code received: " . $response['response']['code'];
+
+                header('Content-type: application/json');
+                echo json_encode($response_array);
+
+            }
+        }
+
+        exit();
 
     }
 
