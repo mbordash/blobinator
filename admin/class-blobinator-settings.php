@@ -50,9 +50,17 @@ class Blobinator_Settings
 
     }
 
-    public function blobinator_get_current_key(){
+    public function blobinator_get_current_key() {
 
         return get_option( 'blobinator_auth_key');
+
+    }
+
+    public function blobinator_delete_current_key() {
+
+        delete_option( 'blobinator_auth_key' );
+
+        return true;
 
     }
 }

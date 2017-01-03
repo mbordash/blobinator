@@ -27,5 +27,10 @@
 
 // If uninstall not called from WordPress, then exit.
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
-	exit;
+
+    $blobinator_settings = new Blobinator_Settings;
+
+    $blobinator_settings->blobinator_delete_current_key();
+
+    exit;
 }

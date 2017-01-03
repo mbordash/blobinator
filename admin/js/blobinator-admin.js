@@ -82,6 +82,7 @@ function blobinator_add_concepts_to_post_tags() {
     var items = jQuery.unique( items );
 
     jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+    jQuery('#new-tag-product_tag').val(jQuery('#new-tag-product_tag').val() + items.join(', '));
 
     jQuery('#blobinator_add_concepts_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
 }
@@ -107,6 +108,7 @@ function blobinator_add_keywords_to_post_tags() {
     var items = jQuery.unique( items );
 
     jQuery('#new-tag-post_tag').val(jQuery('#new-tag-post_tag').val() + items.join(', '));
+    jQuery('#new-tag-product_tag').val(jQuery('#new-tag-product_tag').val() + items.join(', '));
 
     jQuery('#blobinator_add_keywords_as_tags_div').html('Added to Tags within your Post!').fadeOut({ duration: 2000 });
 }
