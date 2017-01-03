@@ -154,6 +154,7 @@ class Blobinator {
 
         $this->loader->add_action( 'admin_footer', $plugin_admin, 'blobinator_create_results_div');
 
+
     }
 
 	/**

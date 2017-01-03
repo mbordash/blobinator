@@ -22,7 +22,10 @@
  */
 class Blobinator_Admin {
 
-    protected $api = 'https://www.blobinator.com/api/blobinator';
+    protected $api_host = 'https://www.blobinator.com';
+    //protected $api_host = 'http://wp-blobinator:8080';
+    protected $api_path = '/api/blobinator';
+    protected $api_manager_path = '/';
 
 	/**
 	 * The ID of this plugin.
@@ -51,8 +54,8 @@ class Blobinator_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->plugin_name  = $plugin_name;
+		$this->version      = $version;
 
 	}
 
@@ -138,6 +141,25 @@ class Blobinator_Admin {
             wp_die( 'You are not allowed to be on this page.' );
         }
 
+        //get and check API key exists, pass key along server side request
+        $blobinatorOptions = get_option('blobinator_content_analyzer_-_free_data');
+        $blobinatorApiKey = $blobinatorOptions['api_key'];
+        $blobinatorApiEmail = $blobinatorOptions['activation_email'];
+        $blobinatorProductId = get_option('blobinator_content_analyzer_-_free_product_id');
+        $blobinatorInstanceId = get_option('blobinator_content_analyzer_-_free_instance');
+
+        if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
+
+            $response_array['status'] = "error";
+            $response_array['message'] = "Your License Key for Blobinator is not set. Please go to Settings > Blobinator Content Analyzer - Free API Key Activation to set your key first.";
+
+            header('Content-type: application/json');
+            echo json_encode($response_array);
+
+            wp_die();
+
+        }
+
         check_admin_referer( 'ba_op_verify' );
 
         if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
@@ -146,33 +168,34 @@ class Blobinator_Admin {
             $service = sanitize_text_field($_POST['service']);
 
 
-            $postdata = http_build_query(
-                array(
-                    'blobinator_text_to_analyze' => $textToAnalyze,
-                    'service' => $service
-                )
+            $requestBody = array(
+                'blobinator_text_to_analyze' => $textToAnalyze,
+                'service' => $service,
+                'blobinator_api_key' => $blobinatorApiKey,
+                'blobinator_activation_email' => $blobinatorApiEmail,
+                'blobinator_product_id' => $blobinatorProductId,
+                'blobinator_instance_id' => $blobinatorInstanceId
             );
 
-            $opts = array('http' =>
-                array(
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $postdata
-                )
+            $opts = array(
+                'body' => $requestBody,
+                'headers'  => 'Content-type: application/x-www-form-urlencoded'
             );
 
-            $context  = stream_context_create($opts);
+            $response = wp_remote_post($this->api_host . $this->api_path, $opts);
 
-            $response = file_get_contents($this->api, false, $context);
+            if( $response['response']['code'] == 200 ) {
 
-            if( $response ) {
-
-                echo $response;
-                error_log($response);
+                echo $response['body'];
+                error_log($response['body']);
 
             } else {
 
-                echo "Something went wrong.";
+                $response_array['status'] = "error";
+                $response_array['message'] = "Something went wrong with this request. Code received: " . $response['response']['code'];
+
+                header('Content-type: application/json');
+                echo json_encode($response_array);
 
             }
         }

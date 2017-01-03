@@ -339,6 +339,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 							settings_fields( $this->ame_data_key );
 							do_settings_sections( $this->ame_activation_tab_key );
 							submit_button( __( 'Save Changes', $this->text_domain ) );
+
 						} else {
 							settings_fields( $this->ame_deactivate_checkbox );
 							do_settings_sections( $this->ame_deactivation_tab_key );
@@ -401,7 +402,7 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 			if ( $this->ame_options[ $this->ame_api_key ] ) {
 				echo "<span class='dashicons dashicons-yes' style='color: #66ab03;'></span>";
 			} else {
-				echo "<span class='dashicons dashicons-no' style='color: #ca336c;'></span>";
+				echo "<span class='dashicons dashicons-no' style='color: #ca336c;'></span> Need a key? <a target='_blank' href='https://www.blobinator.com'>Get one for free!</a>";
 			}
 		}
 

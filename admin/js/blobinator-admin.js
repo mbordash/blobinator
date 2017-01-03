@@ -60,7 +60,7 @@ jQuery(function($) {
                     author: 'Michael Bordash',
                     authorurl: 'http://www.blobinator.com',
                     infourl: 'http://www.blobinator.com',
-                    version: "0.1"
+                    version: "1.0.0"
                 };
             }
         });
@@ -125,11 +125,15 @@ function blobinatorHandleFormPost() {
         data: data + '&service=concepts',
         action: 'blobinator_analyze',
         cache: false,
-        success: function(response){
+        success: function(response) {
+
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
             var jsonResponse = jQuery.parseJSON(response);
-
-            console.log(jsonResponse);
 
             var contentTable = '<table id="blobinator_concepts" class="widefat"><thead><th>Concept</th><th>Relevance</th><th>More Information</th></thead><tbody>';
             for( var elem in jsonResponse ) {
@@ -148,8 +152,8 @@ function blobinatorHandleFormPost() {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
-            jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
+            jQuery('#dialog-blobinator-error').html(response.message);
+            return false;
         }
 
     });
@@ -162,9 +166,13 @@ function blobinatorHandleFormPost() {
         cache: false,
         success: function(response){
 
-            var jsonResponse = jQuery.parseJSON(response);
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
-            console.log(jsonResponse);
+            var jsonResponse = jQuery.parseJSON(response);
 
             // get it into the form required by `nvd3`
             input = [{ key: '', values: jsonResponse }]
@@ -201,7 +209,6 @@ function blobinatorHandleFormPost() {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
@@ -215,9 +222,13 @@ function blobinatorHandleFormPost() {
         cache: false,
         success: function(response){
 
-            var jsonResponse = jQuery.parseJSON(response);
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
-            console.log(jsonResponse);
+            var jsonResponse = jQuery.parseJSON(response);
 
             var arraySize = jQuery(jsonResponse).size();
             var sentimentText;
@@ -266,7 +277,6 @@ function blobinatorHandleFormPost() {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
 
@@ -282,7 +292,11 @@ function blobinatorHandleFormPost() {
         cache: false,
         success: function(response){
 
-            console.log(response);
+            if( response.status == 'error' ) {
+                jQuery('#dialog-blobinator-error').html(response.message).show();
+                jQuery('#dialog-blobinator-success').hide();
+                return false;
+            }
 
             var jsonResponse = jQuery.parseJSON(response);
 
@@ -323,7 +337,6 @@ function blobinatorHandleFormPost() {
             });
         },
         error: function(response) {
-            console.log(response.responseText);
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
         }
     });
