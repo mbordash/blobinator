@@ -107,31 +107,6 @@ class Blobinator_Admin {
 
 	}
 
-
-    /**
-     * Add an options page under the Tools submenu
-     *
-     * @since  1.0.0
-     */
-    public function blobinator_add_settings_page() {
-        $this->plugin_screen_hook_suffix = add_options_page(
-            __( 'Blobinator Settings', 'blobinator' ),
-            __( 'Blobinator Settings', 'blobinator' ),
-            'manage_options',
-            $this->plugin_name,
-            array( $this, 'blobinator_display_settings_page' )
-        );
-    }
-
-    /**
-     * Render the options page for plugin
-     *
-     * @since  1.0.0
-     */
-    public function blobinator_display_settings_page() {
-        include_once 'partials/blobinator-settings.php';
-    }
-
     public function blobinator_add_button( $plugin_array ) {
 
         $plugin_array['blobinator'] = plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js';

@@ -31,14 +31,6 @@ class Blobinator_Activator {
 	 */
 	public static function activate() {
 
-        // request new key and store as wordpress key/val
-
-        $blobinator_settings = new Blobinator_Settings;
-
-        $blobinator_new_key = $blobinator_settings->blobinator_get_new_key();
-
-        $blobinator_settings->blobinator_set_new_key($blobinator_new_key);
-
 	}
 
 }
