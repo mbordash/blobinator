@@ -305,36 +305,36 @@ function blobinatorHandleFormPost() {
             var counter = 0;
             for( var elem in jsonResponse ) {
                 jsArr[counter] = {
-                    'label': elem,
-                    'value': jsonResponse[elem]
+                    'key': elem,
+                    'y': jsonResponse[elem]
                 };
                 counter++;
             }
 
+            var height = 350;
+            var width = 600;
+
             nv.addGraph(function() {
-
-                var width = 300;
-                var height = 300;
-
-                var chart = nv.models.pie()
-
-                    .x(function(d) {return d.label})
-                    .y(function(d) {return d.value})
+                var chart = nv.models.pieChart()
+                    .x(function(d) { return d.key })
+                    .y(function(d) { return d.y })
                     .width(width)
                     .height(height)
-                    .showLabels(true)
-                    .labelType("key")
-                    .labelThreshold(0.01)
-                    .labelSunbeamLayout(true);
-
+                    .labelType('percent')
+                    .legendPosition("right")
+                    .labelSunbeamLayout(true)
+                    .showTooltipPercent(true);
 
                 d3.select("#emotion_chart svg")
-                    .datum([jsArr])
+                    .datum(jsArr)
                     .transition().duration(1200)
-                    .call(chart)
-                    .style({ 'height': height });
+                    .attr('height', height)
+                    .call(chart);
 
+                return chart;
             });
+
+
         },
         error: function(response) {
             jQuery('#spinner').removeClass('is-active').addClass('is-inactive');
