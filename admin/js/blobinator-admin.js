@@ -20,7 +20,6 @@ jQuery(function($) {
                     var return_text = '';
                     return_text = selected_text;
 
-                    old_tb_position = tb_position;
                     tb_position = function(){
                         $("#TB_window").css({marginLeft: '-' + parseInt((TB_WIDTH / 2),10) + 'px', width: TB_WIDTH + 'px', height: TB_HEIGHT + 'px', marginTop: '-' + parseInt((TB_HEIGHT / 2),10) + 'px'});
                     };
@@ -43,7 +42,9 @@ jQuery(function($) {
                         return false;
                     }
 
-                    tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
+                    var dynHeight = ( 80 * jQuery(window).height() ) / 100;
+
+                    tb_show('Blobinator Content Analysis', '#TB_inline?height=' + dynHeight + '&amp;width=900&amp;inlineId=modal-blobinator-results');
 
                     $('#blobinator_text_to_analyze').val(return_text);
                     blobinatorHandleFormPost();
