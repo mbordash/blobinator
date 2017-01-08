@@ -4,7 +4,7 @@ Donate link: http://www.blobinator.com
 Tags: article, admin, post, woocommerce, content, cognitive, search engine optimization, tagging
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.0.2
+Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -47,6 +47,9 @@ Not yet, but we may deploy a paid version with more cognitive content goodness i
 2. This screen shot depicts real-time content analysis for an article after pressing the Blobinator button.
 
 == Changelog ==
+
+= 1.1.0 =
+* BUG-FIX: Fixed modal height based on viewport.
 
 = 1.0.2 =
 * Cleaned up the README file and instructions, also included some screenshots.
