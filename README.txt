@@ -1,11 +1,11 @@
 === Plugin Name ===
 Contributors: mbordash
 Donate link: http://www.blobinator.com
-Tags: text, content, cognitive, search engine optimization
+Tags: article, admin, post, woocommerce, content, cognitive, search engine optimization, tagging
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 4.7
-License: GPL
+Stable tag: 1.1.1
+License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
 Our free Blobinator content analyzer plugin for Wordpress provides deep text analysis of your articles and product descriptions.
@@ -29,7 +29,7 @@ Go to Blobinator.com to subscribe and retrieve your free license key to activate
 
 1. Upload `blobinator.zip` to your Plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Enter your custom license key generated from Blobinator.com under Settings > Blobinator Settings
+3. Enter your free license key generated from [Blobinator.com](https://www.blobinator.com/ "The Blobinator") under Settings > Blobinator Settings
 
 == Frequently Asked Questions ==
 
@@ -41,8 +41,21 @@ Yes. Completely free.
 
 Not yet, but we may deploy a paid version with more cognitive content goodness if you all end up liking our free version?
 
+== Screenshots ==
+
+1. This screen shot depicts the Blobinator button now appearing in your content editing form.
+2. This screen shot depicts real-time content analysis for an article after pressing the Blobinator button.
 
 == Changelog ==
+
+= 1.1.0 =
+* BUG-FIX: Fixed modal height based on viewport.
+
+= 1.0.2 =
+* Cleaned up the README file and instructions, also included some screenshots.
+
+= 1.0.1 =
+* Minor display fixes
 
 = 1.0.0 =
 * First release of Blobinator plugin and corresponding SaaS service w/ keyed activation

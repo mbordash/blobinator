@@ -1,12 +1,6 @@
 <?php
 
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  *
  * @link              http://www.blobinator.com
  * @since             1.0.0
@@ -16,10 +10,10 @@
  * Plugin Name:       Blobinator
  * Plugin URI:        http://www.blobinator.com
  * Description:       Wordpress Plugin for appending insights to blobs of text or images. Helpful for editing your content and articles.
- * Version:           1.0.0
+ * Version:           1.1.1
  * Author:            Michael Bordash
- * Author URI:        MIT
- * License URI:       https://opensource.org/licenses/MIT
+ * Author URI:        https://github.com/mbordash
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.en.html
  * Text Domain:       blobinator
  * Domain Path:       /languages
  */
