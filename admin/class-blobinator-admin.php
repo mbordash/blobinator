@@ -23,8 +23,8 @@
 class Blobinator_Admin {
 
     protected $api_host = 'https://www.blobinator.com';
-    //protected $api_host = 'http://wp-blobinator:8080';
-    protected $api_path = '/api/blobinator';
+    //protected $api_host         = 'http://wp-blobinator:8080';
+    protected $api_path         = '/api/blobinator';
     protected $api_manager_path = '/';
 
 	/**
@@ -142,11 +142,11 @@ class Blobinator_Admin {
         }
 
         //get and check API key exists, pass key along server side request
-        $blobinatorOptions = get_option('blobinator_content_analyzer_-_free_data');
-        $blobinatorApiKey = $blobinatorOptions['api_key'];
-        $blobinatorApiEmail = $blobinatorOptions['activation_email'];
-        $blobinatorProductId = get_option('blobinator_content_analyzer_-_free_product_id');
-        $blobinatorInstanceId = get_option('blobinator_content_analyzer_-_free_instance');
+        $blobinatorOptions      = get_option('blobinator_content_analyzer_-_free_data');
+        $blobinatorApiKey       = 'wc_order_58773985ef2e1_am_Vu6R0EbYeLPE';
+        $blobinatorApiEmail     = 'trial_key@blobinator.com';
+        $blobinatorProductId    = get_option('blobinator_content_analyzer_-_free_product_id');
+        $blobinatorInstanceId   = get_option('blobinator_content_analyzer_-_free_instance');
 
         if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
 
@@ -169,17 +169,17 @@ class Blobinator_Admin {
 
 
             $requestBody = array(
-                'blobinator_text_to_analyze' => $textToAnalyze,
-                'service' => $service,
-                'blobinator_api_key' => $blobinatorApiKey,
-                'blobinator_activation_email' => $blobinatorApiEmail,
-                'blobinator_product_id' => $blobinatorProductId,
-                'blobinator_instance_id' => $blobinatorInstanceId
+                'blobinator_text_to_analyze'    => $textToAnalyze,
+                'service'                       => $service,
+                'blobinator_api_key'            => $blobinatorApiKey,
+                'blobinator_activation_email'   => $blobinatorApiEmail,
+                'blobinator_product_id'         => $blobinatorProductId,
+                'blobinator_instance_id'        => $blobinatorInstanceId
             );
 
             $opts = array(
-                'body' => $requestBody,
-                'headers'  => 'Content-type: application/x-www-form-urlencoded'
+                'body'      => $requestBody,
+                'headers'   => 'Content-type: application/x-www-form-urlencoded'
             );
 
             $response = wp_remote_post($this->api_host . $this->api_path, $opts);
