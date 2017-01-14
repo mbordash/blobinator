@@ -182,7 +182,6 @@ function blobinatorHandleFormPost() {
                 var chart = nv.models.multiBarHorizontalChart()
                     .x(function(d) {return d.text})
                     .y(function(d) {return d.relevance})
-                    .barColor(d3.scale.category20().range())
                     .margin({top: 30, right: 20, bottom: 50, left: 175})
                     .height(height)
                     .showLegend(false)

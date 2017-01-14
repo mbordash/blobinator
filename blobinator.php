@@ -10,7 +10,7 @@
  * Plugin Name:       Blobinator
  * Plugin URI:        http://www.blobinator.com
  * Description:       Wordpress Plugin for appending insights to blobs of text or images. Helpful for editing your content and articles.
- * Version:           1.1.1
+ * Version:           1.1.5
  * Author:            Michael Bordash
  * Author URI:        https://github.com/mbordash
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -50,28 +50,6 @@ register_deactivation_hook( __FILE__, 'deactivate_blobinator' );
  * admin-specific hooks, and public-facing site hooks.
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-blobinator.php';
-
-// Load the API Key library if it is not already loaded. Must be placed in the root plugin file.
-if ( ! class_exists( 'AM_License_Menu' ) ) {
-    // Uncomment next line if this is a plugin
-    require_once( plugin_dir_path( __FILE__ ) . 'admin/am-license-menu.php' );
-
-    // Uncomment next line if this is a theme
-    // require_once( get_stylesheet_directory() . '/am-license-menu.php' );
-
-    /**
-     * @param string $file             Must be __FILE__ from the root plugin file, or theme functions file.
-     * @param string $software_title   Must be exactly the same as the Software Title in the product.
-     * @param string $software_version This product's current software version.
-     * @param string $plugin_or_theme  'plugin' or 'theme'
-     * @param string $api_url          The URL to the site that is running the API Manager. Example: https://www.toddlahman.com/
-     *
-     * @return \AM_License_Submenu|null
-     */
-    AM_License_Menu::instance( __FILE__, 'Blobinator Content Analyzer - Free', '1.0.0', 'plugin', 'https://www.blobinator.com/' );
-
-}
-
 
 /**
  * Begins execution of the plugin.

@@ -1,18 +1,18 @@
 === Plugin Name ===
 Contributors: mbordash
 Donate link: http://www.blobinator.com
-Tags: article, admin, post, woocommerce, content, cognitive, search engine optimization, tagging
+Tags: cognitive, article, admin, post, woocommerce, content, search engine optimization, tagging, automatic
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.1.1
+Stable tag: 1.1.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Our free Blobinator content analyzer plugin for Wordpress provides deep text analysis of your articles and product descriptions.
+Blobinator is a free cognitive content analyzer plugin for Wordpress providing deep text analysis of your articles, product descriptions, and page content.
 
 == Description ==
 
-Our free Blobinator content analyzer plugin for WordPress provides deep text analysis of your articles. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing by linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
+Our free Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your articles. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
 
 Features of our free WordPress plugin include:
 
@@ -20,8 +20,7 @@ Features of our free WordPress plugin include:
 *   Emotion detection and breakdown
 *   Keyword and related keyword extraction
 *   Concept extraction and discovery
-*   100 content analysis requests per month for 6 months
-*   Installation limited to 1 WordPress site
+*   Cognitive tagging for your content
 
 Go to Blobinator.com to subscribe and retrieve your free license key to activate the cognitive magic.
 
@@ -29,7 +28,6 @@ Go to Blobinator.com to subscribe and retrieve your free license key to activate
 
 1. Upload `blobinator.zip` to your Plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Enter your free license key generated from [Blobinator.com](https://www.blobinator.com/ "The Blobinator") under Settings > Blobinator Settings
 
 == Frequently Asked Questions ==
 
@@ -47,6 +45,9 @@ Not yet, but we may deploy a paid version with more cognitive content goodness i
 2. This screen shot depicts real-time content analysis for an article after pressing the Blobinator button.
 
 == Changelog ==
+
+= 1.1.4 =
+* Set default trial key, so no more manual activation. Also converted color bars to blue.
 
 = 1.1.0 =
 * BUG-FIX: Fixed modal height based on viewport.
