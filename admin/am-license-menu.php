@@ -400,9 +400,9 @@ if ( ! class_exists( 'AM_License_Menu' ) ) {
 		public function wc_am_api_key_field() {
 			echo "<input id='api_key' name='" . $this->ame_data_key . "[" . $this->ame_api_key . "]' size='25' type='text' value='" . $this->ame_options[ $this->ame_api_key ] . "' />";
 			if ( $this->ame_options[ $this->ame_api_key ] ) {
-				echo "<span class='dashicons dashicons-yes' style='color: #66ab03;'></span>";
+				echo "<span class='dashicons dashicons-yes' style='color: #66ab03;'></span> <a target='_blank' href='https://www.blobinator.com'>Need a new key</a>?";
 			} else {
-				echo "<span class='dashicons dashicons-no' style='color: #ca336c;'></span> Need a key? <a target='_blank' href='https://www.blobinator.com'>Get one for free!</a>";
+				echo "<span class='dashicons dashicons-no' style='color: #ca336c;'></span> Use this free trial key or <a target='_blank' href='https://www.blobinator.com'>get your own</a>!";
 			}
 		}
 
