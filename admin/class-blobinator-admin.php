@@ -142,11 +142,10 @@ class Blobinator_Admin {
         }
 
         //get and check API key exists, pass key along server side request
-        $blobinatorOptions      = get_option('blobinator_content_analyzer_-_free_data');
         $blobinatorApiKey       = 'wc_order_58773985ef2e1_am_Vu6R0EbYeLPE';
         $blobinatorApiEmail     = 'trial_key@blobinator.com';
-        $blobinatorProductId    = get_option('blobinator_content_analyzer_-_free_product_id');
-        $blobinatorInstanceId   = get_option('blobinator_content_analyzer_-_free_instance');
+        $blobinatorProductId    = 'Blobinator Content Analyzer - Free';
+        $blobinatorInstanceId   = 'gUgGHLFPjl2V';
 
         if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
 
