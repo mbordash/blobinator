@@ -10,7 +10,7 @@
  * Plugin Name:       Blobinator
  * Plugin URI:        http://www.blobinator.com
  * Description:       Wordpress Plugin for appending insights to blobs of text or images. Helpful for editing your content and articles.
- * Version:           1.1.7
+ * Version:           1.1.8
  * Author:            Michael Bordash
  * Author URI:        https://github.com/mbordash
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.en.html

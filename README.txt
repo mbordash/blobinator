@@ -4,7 +4,7 @@ Donate link: http://www.blobinator.com
 Tags: cognitive, article, admin, post, woocommerce, content, search engine optimization, tagging, automatic, auto tag
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
