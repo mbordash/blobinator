@@ -32,7 +32,6 @@ class Blobinator_Public {
 	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
 	private $plugin_name;
-3
 	/**
 	 * The version of this plugin.
 	 *
