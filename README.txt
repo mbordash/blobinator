@@ -4,7 +4,7 @@ Donate link: http://www.blobinator.com
 Tags: cognitive, article, admin, post, woocommerce, content, search engine optimization, tagging, automatic, auto tag
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.1.8
+Stable tag: 1.2.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -39,12 +39,23 @@ Yes. Completely free.
 
 Not yet, but we may deploy a paid version with more cognitive content goodness if you all end up liking our free version.
 
+= Can I display sentiment analysis on my public posts?
+
+Yes. Go to Settings > Blobinator and select Yes to display sentiment on your public content
+
 == Screenshots ==
 
 1. This screen shot depicts real-time content analysis for an article after pressing the Blobinator button.
 2. This screen shot depicts the Blobinator button now appearing in your content editing form.
 
 == Changelog ==
+
+= 1.2.0 =
+* Added settings page so you can display sentiment analysis on your public posts
+* Slight update to chart UI
+
+= 1.1.9 =
+* Fixed plugin activation error
 
 = 1.1.6 =
 * Fixed trial key issue

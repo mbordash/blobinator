@@ -22,6 +22,8 @@
  */
 class Blobinator_Admin {
 
+    private $option_name = 'blobinator';
+
     protected $api_host = 'https://www.blobinator.com';
     //protected $api_host         = 'http://wp-blobinator:8080';
     protected $api_path         = '/api/blobinator';
@@ -79,7 +81,7 @@ class Blobinator_Admin {
 		 */
 
         wp_enqueue_style( $this->plugin_name . 'nvd3', plugin_dir_url( __FILE__ ) . 'css/nv.d3.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-admin.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-public.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name . '-jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
 
     }
@@ -126,7 +128,7 @@ class Blobinator_Admin {
 
     public function blobinator_create_results_div( ) {
 
-        include_once 'partials/modal-blobinator-analyze-display.php';
+        include_once 'partials/blobinator-analyze-display-modal.php';
 
     }
 
@@ -163,9 +165,9 @@ class Blobinator_Admin {
 
         if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
 
-            $textToAnalyze = urlencode(sanitize_text_field($_POST['blobinator_text_to_analyze']));
-            $service = sanitize_text_field($_POST['service']);
-
+            $textToAnalyze  = urlencode( sanitize_text_field( $_POST['blobinator_text_to_analyze'] ) );
+            $service        = sanitize_text_field( $_POST['service'] );
+            $postId         = sanitize_text_field( $_POST['post_ID'] );
 
             $requestBody = array(
                 'blobinator_text_to_analyze'    => $textToAnalyze,
@@ -186,7 +188,10 @@ class Blobinator_Admin {
             if( $response['response']['code'] == 200 ) {
 
                 echo $response['body'];
-                error_log($response['body']);
+                //error_log($response['body']);
+                //error_log( print_r($_POST,true) );
+
+                update_post_meta( $postId, $service, $response['body'] );
 
             } else {
 
@@ -201,6 +206,110 @@ class Blobinator_Admin {
 
         exit();
 
+    }
+
+    /**
+     * Add an options page under the Settings submenu
+     *
+     * @since  1.0.0
+     */
+    public function add_options_page() {
+
+        $this->plugin_screen_hook_suffix = add_options_page(
+            __( 'Blobinator Settings', 'blobinator' ),
+            __( 'Blobinator', 'blobinator' ),
+            'manage_options',
+            $this->plugin_name,
+            array( $this, 'display_options_page' )
+        );
+
+    }
+
+    /**
+     * Render the options page for plugin
+     *
+     * @since  1.0.0
+     */
+    public function display_options_page() {
+        include_once 'partials/blobinator-admin-display.php';
+    }
+
+    /**
+     * Register all related settings of this plugin
+     *
+     * @since  1.0.0
+     */
+    public function register_setting() {
+
+        add_settings_section(
+            $this->option_name . '_general',
+            __( 'General', 'blobinator' ),
+            array( $this, $this->option_name . '_general_cb' ),
+            $this->plugin_name
+        );
+
+        add_settings_field(
+            $this->option_name . '_sentiment',
+            __( 'Display Sentiment on Public Posts?', 'blobinator' ),
+            array( $this, $this->option_name . '_sentiment_cb' ),
+            $this->plugin_name,
+            $this->option_name . '_general',
+            array( 'label_for' => $this->option_name . '_sentiment' )
+        );
+
+        register_setting( $this->plugin_name, $this->option_name . '_sentiment', array( $this, $this->option_name . '_sanitize_display' ) );
+    }
+
+    /**
+     * Render the text for the general section
+     *
+     * @since  1.0.0
+     */
+    public function blobinator_general_cb() {
+
+        echo '<p>' . __( 'Please change the settings accordingly.', 'blobinator' ) . '</p>';
+
+    }
+
+    /**
+     * Render the radio input field for setiment option
+     *
+     * @since  1.0.0
+     */
+    public function blobinator_sentiment_cb() {
+
+        $sentiment = get_option( $this->option_name . '_sentiment' );
+
+        ?>
+
+        <fieldset>
+            <label>
+                <input type="radio" name="<?php echo $this->option_name . '_sentiment' ?>" id="<?php echo $this->option_name . '_sentiment' ?>" value="yes" <?php checked( $sentiment, 'yes' ); ?>>
+                <?php _e( 'Yes', 'blobinator' ); ?>
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="<?php echo $this->option_name . '_sentiment' ?>" value="no" <?php checked( $sentiment, 'no' ); ?>>
+                <?php _e( 'No', 'blobinator' ); ?>
+            </label>
+        </fieldset>
+
+        <?php
+    }
+
+
+    /**
+     * Sanitize the text sentiment value before being saved to database
+     *
+     * @param  string $sentiment $_POST value
+     * @since  1.0.0
+     * @return string           Sanitized value
+     */
+
+    public function blobinator_sanitize_display( $sentiment ) {
+        if ( in_array( $sentiment, array( 'yes', 'no' ), true ) ) {
+            return $sentiment;
+        }
     }
 
 }

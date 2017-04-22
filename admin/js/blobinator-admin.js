@@ -20,7 +20,6 @@ jQuery(function($) {
                     var return_text = '';
                     return_text = selected_text;
 
-                    old_tb_position = tb_position;
                     tb_position = function(){
                         $("#TB_window").css({marginLeft: '-' + parseInt((TB_WIDTH / 2),10) + 'px', width: TB_WIDTH + 'px', height: TB_HEIGHT + 'px', marginTop: '-' + parseInt((TB_HEIGHT / 2),10) + 'px'});
                     };
@@ -43,7 +42,9 @@ jQuery(function($) {
                         return false;
                     }
 
-                    tb_show('Blobinator Content Analysis', '#TB_inline?height=900&amp;width=900&amp;inlineId=modal-blobinator-results');
+                    var dynHeight = ( 80 * jQuery(window).height() ) / 100;
+
+                    tb_show('Blobinator Content Analysis', '#TB_inline?height=' + dynHeight + '&amp;width=900&amp;inlineId=modal-blobinator-results');
 
                     $('#blobinator_text_to_analyze').val(return_text);
                     blobinatorHandleFormPost();
@@ -241,18 +242,20 @@ function blobinatorHandleFormPost() {
                 sentimentScore = jsonResponse[0];
             }
             
-            toneAnalysis = '<h2>We detected a <strong>' + sentimentText + '</strong> tone when analyzing your content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+            toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> tone when analyzing this content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
 
 
             jQuery('#overall_tone').html( toneAnalysis ).show();
 
             nv.addGraph(function() {
 
-                var chart = nv.models.discreteBarChart()
+                var chart = nv.models.multiBarHorizontalChart()
 
                     .x(function(d) {return d.label})
                     .y(function(d) {return d.value})
                     .forceY([-1,1])
+                    .showLegend(false)
+                    .showControls(false)
                     .showValues(true);
 
 
@@ -266,7 +269,7 @@ function blobinatorHandleFormPost() {
                 return  [{
                     key: "Sentiment",
                     values: [{
-                        "label": "Content Selection",
+                        "label": "Sentiment",
                         "value": sentimentScore
                     }]
                 }]
@@ -310,8 +313,8 @@ function blobinatorHandleFormPost() {
                 counter++;
             }
 
-            var height = 350;
-            var width = 600;
+            var height = 400;
+            var width = 400;
 
             nv.addGraph(function() {
                 var chart = nv.models.pieChart()
@@ -320,7 +323,6 @@ function blobinatorHandleFormPost() {
                     .width(width)
                     .height(height)
                     .labelType('percent')
-                    .legendPosition("right")
                     .labelSunbeamLayout(true)
                     .showTooltipPercent(true);
 

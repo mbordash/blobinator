@@ -69,11 +69,12 @@ class Blobinator {
 	public function __construct() {
 
 		$this->plugin_name = 'blobinator';
-		$this->version = '1.0.0';
+		$this->version = '1.2.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
+        $this->define_public_hooks();
 	}
 
 	/**
@@ -109,6 +110,12 @@ class Blobinator {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-blobinator-admin.php';
+
+        /**
+         * The class responsible for defining all actions that occur in the public-facing
+         * side of the site.
+         */
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-blobinator-public.php';
 
 		$this->loader = new Blobinator_Loader();
 
@@ -154,7 +161,24 @@ class Blobinator {
 
         $this->loader->add_action( 'admin_footer', $plugin_admin, 'blobinator_create_results_div');
 
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'register_setting' );
 
+    }
+
+    /**
+     * Register all of the hooks related to the public-facing functionality
+     * of the plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function define_public_hooks() {
+        $plugin_public = new Blobinator_Public( $this->get_plugin_name(), $this->get_version() );
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+        $this->loader->add_filter( 'the_content', $plugin_public, 'blobinator_create_public_results_div');
     }
 
 	/**
