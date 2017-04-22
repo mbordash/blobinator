@@ -242,18 +242,20 @@ function blobinatorHandleFormPost() {
                 sentimentScore = jsonResponse[0];
             }
             
-            toneAnalysis = '<h2>We detected a <strong>' + sentimentText + '</strong> tone when analyzing your content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+            toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> tone when analyzing this content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
 
 
             jQuery('#overall_tone').html( toneAnalysis ).show();
 
             nv.addGraph(function() {
 
-                var chart = nv.models.discreteBarChart()
+                var chart = nv.models.multiBarHorizontalChart()
 
                     .x(function(d) {return d.label})
                     .y(function(d) {return d.value})
                     .forceY([-1,1])
+                    .showLegend(false)
+                    .showControls(false)
                     .showValues(true);
 
 
@@ -267,7 +269,7 @@ function blobinatorHandleFormPost() {
                 return  [{
                     key: "Sentiment",
                     values: [{
-                        "label": "Content Selection",
+                        "label": "Sentiment",
                         "value": sentimentScore
                     }]
                 }]
@@ -311,8 +313,8 @@ function blobinatorHandleFormPost() {
                 counter++;
             }
 
-            var height = 350;
-            var width = 600;
+            var height = 400;
+            var width = 400;
 
             nv.addGraph(function() {
                 var chart = nv.models.pieChart()
@@ -321,7 +323,6 @@ function blobinatorHandleFormPost() {
                     .width(width)
                     .height(height)
                     .labelType('percent')
-                    .legendPosition("right")
                     .labelSunbeamLayout(true)
                     .showTooltipPercent(true);
 
