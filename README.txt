@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: mbordash
 Donate link: http://www.blobinator.com
-Tags: cognitive, article, admin, post, woocommerce, content, search engine optimization, tagging, automatic, auto tag
+Tags: cognitive, article, admin, post, watson, content, seo, tagging, automatic, auto tag
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.2.0
+Stable tag: 1.2.5
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -28,20 +28,21 @@ Please give us many stars if you like the cognitive magic!
 
 1. Upload `blobinator.zip` to your Plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. If you want to show Sentiment or Emotions in your public posts, go to Settings > Blobinator
 
 == Frequently Asked Questions ==
 
 = Is this a free service? =
 
-Yes. Completely free.
+Yes. Completely free. For now.
 
 = Do you have a paid version? =
 
 Not yet, but we may deploy a paid version with more cognitive content goodness if you all end up liking our free version.
 
-= Can I display sentiment analysis on my public posts?
+= Can I display sentiment or emotion analysis on my public posts?
 
-Yes. Go to Settings > Blobinator and select Yes to display sentiment on your public content
+Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion on your public content
 
 == Screenshots ==
 
@@ -50,9 +51,15 @@ Yes. Go to Settings > Blobinator and select Yes to display sentiment on your pub
 
 == Changelog ==
 
-= 1.2.0 =
+= 1.2.5 =
+* Included ability to show emotion analysis on public posts
+* If public display is on, cognitive analysis will process content on public view (and then cached)
+* Code cleanup
+
+= 1.2.4 =
 * Added settings page so you can display sentiment analysis on your public posts
 * Slight update to chart UI
+* Code cleanup
 
 = 1.1.9 =
 * Fixed plugin activation error
