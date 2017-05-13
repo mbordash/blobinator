@@ -107,17 +107,43 @@ class Blobinator_Public {
     public function blobinator_create_public_results_div( $content ) {
 
         $sentimentPermission    = get_option( $this->option_name . '_sentiment' );
+        $emotionPermission      = get_option( $this->option_name . '_emotion' );
         $output                 = '';
+        $currentPostId          = get_the_ID();
 
-	    if( is_singular( ) ) {
+        $blobinator = new Blobinator_Admin();
 
-            if ( get_post_meta( get_the_ID( ), 'sentiment' ) && $sentimentPermission === 'yes' ) {
+	    if( is_singular() ) {
+
+	        if( $sentimentPermission === 'yes' ) {
+
+                if (!get_post_meta($currentPostId, 'sentiment')) {
+
+
+                    $blobinator->blobinator_cognitive( $content, "sentiment", $currentPostId );
+
+                }
 
                 ob_start();
-                include_once( 'partials/blobinator-sentiment-div.php' );
-                $output = ob_get_clean();
+                include_once('partials/blobinator-sentiment-div.php');
+                $output .= ob_get_clean();
+
+	        }
+
+            if( $emotionPermission === 'yes' ) {
+
+                if (!get_post_meta(get_the_ID(), 'emotion')) {
+
+                    $blobinator->blobinator_cognitive( $content, "emotion", $currentPostId );
+
+                }
+
+                ob_start();
+                include_once('partials/blobinator-emotion-div.php');
+                $output .= ob_get_clean();
 
             }
+
 
         }
 

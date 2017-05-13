@@ -1,9 +1,8 @@
 
+// Sentiment
 
 
 var jsonResponse = jQuery.parseJSON(jQuery('#sentiment_result_json').text());
-
-jsonResponse = ["1","-0.0278146","negative"];
 
 var arraySize = jQuery(jsonResponse).size();
 var sentimentText;
@@ -17,7 +16,7 @@ if ( arraySize === 3 ) {
     sentimentScore = jsonResponse[0];
 }
 
-toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> tone when analyzing this content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> sentiment with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
 
 jQuery('#sentiment_result').show();
 jQuery('#overall_tone').html(toneAnalysis);
@@ -49,3 +48,45 @@ function sentimentData() {
         }]
     }]
 }
+
+// Emotion
+
+var jsonResponse = jQuery.parseJSON(jQuery('#emotion_result_json').text());
+
+var jsArr = [];
+
+var counter = 0;
+for( var elem in jsonResponse ) {
+    jsArr[counter] = {
+        'key': elem,
+        'y': jsonResponse[elem]
+    };
+    counter++;
+}
+
+var height = 400;
+var width = 400;
+
+jQuery('#emotion_result').show();
+
+nv.addGraph(function() {
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.key })
+        .y(function(d) { return d.y })
+        .width(width)
+        .height(height)
+        .labelType('percent')
+        .labelSunbeamLayout(true)
+        .showTooltipPercent(true);
+
+    d3.select("#emotion_chart svg")
+        .datum(jsArr)
+        .transition().duration(1200)
+        .attr('height', height)
+        .call(chart);
+
+    return chart;
+});
+
+
+

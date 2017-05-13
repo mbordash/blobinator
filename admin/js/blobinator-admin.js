@@ -242,7 +242,7 @@ function blobinatorHandleFormPost() {
                 sentimentScore = jsonResponse[0];
             }
             
-            toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> tone when analyzing this content with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+            toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> sentiment with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
 
 
             jQuery('#overall_tone').html( toneAnalysis ).show();

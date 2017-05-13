@@ -16,18 +16,16 @@
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<div id="sentiment_result_json" style="display: none;">
-    <?php echo get_post_meta( get_the_ID(), 'sentiment', true); ?>
+<div id="emotion_result_json" style="display: none;">
+    <?php echo get_post_meta( get_the_ID(), 'emotion', true ); ?>
 </div>
 
-<div id="sentiment_result" style="display: none;">
+<div id="emotion_result" style="display: none;">
 
-    <h3><span><?php esc_attr_e( 'Sentiment Analysis', 'wp_public_style' ); ?></span></h3>
+    <h3><span><?php esc_attr_e( 'Emotions Detected', 'wp_public_style' ); ?></span></h3>
 
-    <div id="overall_tone"></div>
-
-    <div id="sentiment_chart">
-        <svg></svg>
+    <div id="emotion_chart">
+        <svg id="emotion_chart_svg"></svg>
     </div>
 
 </div>
