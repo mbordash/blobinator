@@ -81,7 +81,7 @@ class Blobinator_Admin {
 		 */
 
         wp_enqueue_style( $this->plugin_name . 'nvd3', plugin_dir_url( __FILE__ ) . 'css/nv.d3.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-public.css', array(), $this->version, 'all' );
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-admin.css', array(), $this->version, 'all' );
         wp_enqueue_style( $this->plugin_name . '-jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
 
     }
@@ -137,11 +137,26 @@ class Blobinator_Admin {
      *
      * @since  1.0.0
      */
-    public function blobinator_process_text() {
+    public function blobinator_process_text()
+    {
 
-        if ( !current_user_can( 'manage_options' ) ) {
-            wp_die( 'You are not allowed to be on this page.' );
+        if (!current_user_can('manage_options')) {
+            wp_die('You are not allowed to be on this page.');
         }
+
+        check_admin_referer('ba_op_verify');
+
+        if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
+
+            //header('Content-type: application/json');
+            echo $this->blobinator_cognitive( $_POST['blobinator_text_to_analyze'], $_POST['service'], $_POST['post_ID'] );
+
+        }
+
+        exit;
+    }
+
+    public function blobinator_cognitive( $textToAnalyze, $service, $postId ) {
 
         //get and check API key exists, pass key along server side request
         $blobinatorApiKey       = 'wc_order_58773985ef2e1_am_Vu6R0EbYeLPE';
@@ -154,20 +169,17 @@ class Blobinator_Admin {
             $response_array['status'] = "error";
             $response_array['message'] = "Your License Key for Blobinator is not set. Please go to Settings > Blobinator Content Analyzer - Free API Key Activation to set your key first.";
 
-            header('Content-type: application/json');
-            echo json_encode($response_array);
+            return json_encode($response_array);
 
             wp_die();
 
         }
 
-        check_admin_referer( 'ba_op_verify' );
+        if ( isset( $textToAnalyze ) && $textToAnalyze !== '' ) {
 
-        if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
-
-            $textToAnalyze  = urlencode( sanitize_text_field( $_POST['blobinator_text_to_analyze'] ) );
-            $service        = sanitize_text_field( $_POST['service'] );
-            $postId         = sanitize_text_field( $_POST['post_ID'] );
+            $textToAnalyze  = urlencode( sanitize_text_field( $textToAnalyze ) );
+            $service        = sanitize_text_field( $service );
+            $postId         = sanitize_text_field( $postId );
 
             $requestBody = array(
                 'blobinator_text_to_analyze'    => $textToAnalyze,
@@ -187,24 +199,22 @@ class Blobinator_Admin {
 
             if( $response['response']['code'] == 200 ) {
 
-                echo $response['body'];
+                update_post_meta( $postId, $service, $response['body'] );
+
+                return $response['body'];
+
                 //error_log($response['body']);
                 //error_log( print_r($_POST,true) );
-
-                update_post_meta( $postId, $service, $response['body'] );
 
             } else {
 
                 $response_array['status'] = "error";
                 $response_array['message'] = "Something went wrong with this request. Code received: " . $response['response']['code'];
 
-                header('Content-type: application/json');
-                echo json_encode($response_array);
+                return json_encode($response_array);
 
             }
         }
-
-        exit();
 
     }
 
@@ -257,7 +267,18 @@ class Blobinator_Admin {
             array( 'label_for' => $this->option_name . '_sentiment' )
         );
 
+        add_settings_field(
+            $this->option_name . '_emotion',
+            __( 'Display Emotions on Public Posts?', 'blobinator' ),
+            array( $this, $this->option_name . '_emotion_cb' ),
+            $this->plugin_name,
+            $this->option_name . '_general',
+            array( 'label_for' => $this->option_name . '_emotion' )
+        );
+
         register_setting( $this->plugin_name, $this->option_name . '_sentiment', array( $this, $this->option_name . '_sanitize_display' ) );
+        register_setting( $this->plugin_name, $this->option_name . '_emotion', array( $this, $this->option_name . '_sanitize_display' ) );
+
     }
 
     /**
@@ -272,7 +293,7 @@ class Blobinator_Admin {
     }
 
     /**
-     * Render the radio input field for setiment option
+     * Render the radio input field for sentiment option
      *
      * @since  1.0.0
      */
@@ -299,16 +320,41 @@ class Blobinator_Admin {
 
 
     /**
-     * Sanitize the text sentiment value before being saved to database
+     * Render the radio input field for emotion option
      *
-     * @param  string $sentiment $_POST value
+     * @since  1.0.0
+     */
+    public function blobinator_emotion_cb() {
+
+        $emotion = get_option( $this->option_name . '_emotion' );
+
+        ?>
+
+        <fieldset>
+            <label>
+                <input type="radio" name="<?php echo $this->option_name . '_emotion' ?>" id="<?php echo $this->option_name . '_emotion' ?>" value="yes" <?php checked( $emotion, 'yes' ); ?>>
+                <?php _e( 'Yes', 'blobinator' ); ?>
+            </label>
+            <br>
+            <label>
+                <input type="radio" name="<?php echo $this->option_name . '_emotion' ?>" value="no" <?php checked( $emotion, 'no' ); ?>>
+                <?php _e( 'No', 'blobinator' ); ?>
+            </label>
+        </fieldset>
+
+        <?php
+    }
+
+    /**
+     * Sanitize the text  value before being saved to database
+     *
+     * @param  string $text $_POST value
      * @since  1.0.0
      * @return string           Sanitized value
      */
-
-    public function blobinator_sanitize_display( $sentiment ) {
-        if ( in_array( $sentiment, array( 'yes', 'no' ), true ) ) {
-            return $sentiment;
+    public function blobinator_sanitize_display( $text ) {
+        if ( in_array( $text, array( 'yes', 'no' ), true ) ) {
+            return $text;
         }
     }
 
