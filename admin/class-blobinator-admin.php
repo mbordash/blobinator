@@ -94,7 +94,6 @@ class Blobinator_Admin {
 	public function enqueue_scripts() {
 
 		/**
-		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
 		 * defined in Blobinator_Loader as all of the hooks are defined
@@ -105,7 +104,18 @@ class Blobinator_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js', array( 'jquery' ), $this->version, true );
+        wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js', array( 'jquery' ), $this->version, true );
+
+        $blobinator_local_arr = array(
+            'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+            'security'  => wp_create_nonce( 'blobinator-ajax-string' ),
+            'postID'    => get_the_ID()
+        );
+
+        wp_localize_script( $this->plugin_name, 'blobinatorAjaxObject', $blobinator_local_arr );
+
+		wp_enqueue_script( $this->plugin_name);
+
         wp_enqueue_script( $this->plugin_name . '-d3', plugin_dir_url( __FILE__ ) . 'js/d3.v3.min.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( $this->plugin_name . '-nvd3', plugin_dir_url( __FILE__ ) . 'js/nv.d3.min.js', array( $this->plugin_name . '-d3' ), $this->version, true );
         wp_enqueue_script( 'jquery-ui-dialog' );
@@ -128,7 +138,7 @@ class Blobinator_Admin {
 
     public function blobinator_create_results_div( ) {
 
-        include_once 'partials/blobinator-analyze-display-modal.php';
+        include_once 'partials/blobinator-analyze-display-box.php';
 
     }
 
@@ -144,7 +154,7 @@ class Blobinator_Admin {
             wp_die('You are not allowed to be on this page.');
         }
 
-        check_admin_referer('ba_op_verify');
+        check_ajax_referer( 'blobinator-ajax-string', 'security', false );
 
         if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
 
@@ -357,5 +367,20 @@ class Blobinator_Admin {
             return $text;
         }
     }
+
+    /**
+     * Add blobinator meta box to edit post page
+     *
+     * @param
+     * @since  1.0.0
+     * @return string           Sanitized value
+     */
+    public function add_blobinator_results_box( ) {
+
+        add_meta_box('blobinator-results-box', 'Blobinator Cognitive Content Analyzer', array( $this, 'blobinator_create_results_div' ), 'page','normal','high',null);
+        add_meta_box('blobinator-results-box', 'Blobinator Cognitive Content Analyzer', array( $this, 'blobinator_create_results_div' ), 'post','normal','high',null);
+
+    }
+
 
 }

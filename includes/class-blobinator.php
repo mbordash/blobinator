@@ -152,14 +152,15 @@ class Blobinator {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// add meta box to edit post page
+        $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'add_blobinator_results_box' );
+
         // load an action to handle the incoming ajax request for text analysis
-        $this->loader->add_action( 'wp_ajax_blobinator_analyze', $plugin_admin, 'blobinator_process_text' );
+        $this->loader->add_action( 'wp_ajax_blobinator_analyze', $plugin_admin, 'blobinator_process_text');
 
         // load filters for including the blobinator button and actions to the tiny MCE editor
         $this->loader->add_filter( 'mce_external_plugins', $plugin_admin, 'blobinator_add_button');
         $this->loader->add_filter( 'mce_buttons', $plugin_admin, 'blobinator_register_button');
-
-        $this->loader->add_action( 'admin_footer', $plugin_admin, 'blobinator_create_results_div');
 
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_options_page' );
         $this->loader->add_action( 'admin_init', $plugin_admin, 'register_setting' );
