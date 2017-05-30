@@ -111,7 +111,7 @@ class Blobinator_Public {
         $output                 = '';
         $currentPostId          = get_the_ID();
 
-        $blobinator = new Blobinator_Admin( $this->get_plugin_name(), $this->get_version() );
+        $blobinator = new Blobinator_Admin( $this->plugin_name, $this->version );
 
 	    if( is_singular() ) {
 
