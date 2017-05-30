@@ -4,15 +4,15 @@ Donate link: http://www.blobinator.com
 Tags: cognitive, article, admin, post, watson, content, seo, tagging, automatic, auto tag
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.2.5
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Blobinator is a free cognitive content analyzer and tagging plugin providing deep text analysis of your articles, products, and pages.
+Blobinator is a free cognitive content analyzer and tagging plugin providing deep text analysis of your articles, products, and pages. Powered by Watson.
 
 == Description ==
 
-Our free Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your articles. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive automatic tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
+Our free Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your posts, pages, and product listings. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive automatic tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
 
 Features of our free WordPress plugin include:
 
@@ -50,6 +50,15 @@ Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion 
 2. This screen shot depicts the Blobinator button now appearing in your content editing form.
 
 == Changelog ==
+
+= 1.3.0 =
+* Major UI change, removed modal presentation in favor of in-page container with tab controller
+
+= 1.2.7 =
+* Fixed repo discrepancy which caused an exception
+
+= 1.2.6 =
+* Fixed bug when appending tags to an article
 
 = 1.2.5 =
 * Included ability to show emotion analysis on public posts
