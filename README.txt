@@ -52,7 +52,7 @@ Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion 
 == Changelog ==
 
 = 1.3.0 =
-* Major UI change, removed modal presentation in favor of in-page container
+* Major UI change, removed modal presentation in favor of in-page container with tab controller
 
 = 1.2.7 =
 * Fixed repo discrepancy which caused an exception
