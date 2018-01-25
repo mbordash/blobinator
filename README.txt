@@ -3,8 +3,8 @@ Contributors: mbordash
 Donate link: http://www.blobinator.com
 Tags: cognitive, article, admin, post, watson, content, seo, tagging, automatic, auto tag
 Requires at least: 4.0
-Tested up to: 4.7
-Stable tag: 1.3.0
+Tested up to: 4.9.2
+Stable tag: 1.3.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -12,7 +12,7 @@ Blobinator is a free cognitive content analyzer and tagging plugin providing dee
 
 == Description ==
 
-Our free Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your posts, pages, and product listings. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive automatic tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
+The Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your posts, pages, and product listings. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive automatic tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
 
 Features of our free WordPress plugin include:
 
@@ -34,11 +34,11 @@ Please give us many stars if you like the cognitive magic!
 
 = Is this a free service? =
 
-Yes. Completely free. For now.
+Yes. But you can purchase a paid subscription.
 
 = Do you have a paid version? =
 
-Not yet, but we may deploy a paid version with more cognitive content goodness if you all end up liking our free version.
+Yes, the paid version is available via subscription at https://www.blobinator.com
 
 = Can I display sentiment or emotion analysis on my public posts?
 
@@ -50,6 +50,9 @@ Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion 
 2. This screen shot depicts the Blobinator button now appearing in your content editing form.
 
 == Changelog ==
+
+= 1.3.2 =
+* Minor bug fix and API Key option for paid subscribers
 
 = 1.3.0 =
 * Major UI change, removed modal presentation in favor of in-page container with tab controller

@@ -158,7 +158,8 @@ function blobinatorHandleFormPost(return_text) {
     var data = jQuery.param({
         'post_ID': blobinatorAjaxObject.postID,
         'blobinator_text_to_analyze': return_text,
-        'action' : 'blobinator_analyze'
+        'action' : 'blobinator_analyze',
+        'apikey' : blobinatorAjaxObject.apikey,
     });
 
     var security = blobinatorAjaxObject.security;
@@ -281,13 +282,18 @@ function blobinatorHandleFormPost(return_text) {
             var sentimentScore;
 
             if ( arraySize === 3 ) {
-                sentimentText = 'mixed to slightly ' + jsonResponse[2];
+                sentimentText = jsonResponse[2];
                 sentimentScore = jsonResponse[1];
             } else {
-                sentimentText = jsonResponse[1];
                 sentimentScore = jsonResponse[0];
+
+                if (sentimentScore > 0 ) {
+                    sentimentText = "positive";
+                } else {
+                    sentimentText = "negative";
+                }
             }
-            
+
             toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> sentiment with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
 
 
