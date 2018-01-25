@@ -109,7 +109,8 @@ class Blobinator_Admin {
         $blobinator_local_arr = array(
             'ajaxurl'   => admin_url( 'admin-ajax.php' ),
             'security'  => wp_create_nonce( 'blobinator-ajax-string' ),
-            'postID'    => get_the_ID()
+            'postID'    => get_the_ID(),
+            'apikey'    => get_option( $this->option_name . '_apikey' )
         );
 
         wp_localize_script( $this->plugin_name, 'blobinatorAjaxObject', $blobinator_local_arr );
@@ -194,10 +195,6 @@ class Blobinator_Admin {
             $requestBody = array(
                 'blobinator_text_to_analyze'    => $textToAnalyze,
                 'service'                       => $service,
-                'blobinator_api_key'            => $blobinatorApiKey,
-                'blobinator_activation_email'   => $blobinatorApiEmail,
-                'blobinator_product_id'         => $blobinatorProductId,
-                'blobinator_instance_id'        => $blobinatorInstanceId
             );
 
             $opts = array(
@@ -207,7 +204,7 @@ class Blobinator_Admin {
 
             $response = wp_remote_post($this->api_host . $this->api_path, $opts);
 
-            if( $response['response']['code'] == 200 ) {
+            if( $response['response']['code'] === 200 ) {
 
                 update_post_meta( $postId, $service, $response['body'] );
 
@@ -286,8 +283,19 @@ class Blobinator_Admin {
             array( 'label_for' => $this->option_name . '_emotion' )
         );
 
-        register_setting( $this->plugin_name, $this->option_name . '_sentiment', array( $this, $this->option_name . '_sanitize_display' ) );
-        register_setting( $this->plugin_name, $this->option_name . '_emotion', array( $this, $this->option_name . '_sanitize_display' ) );
+        add_settings_field(
+            $this->option_name . '_apikey',
+            __( 'API Key (if you have <a target="_blank" href="https://www.blobinator.com">purchased a subscription</a>)', 'blobinator' ),
+            array( $this, $this->option_name . '_apikey_cb' ),
+            $this->plugin_name,
+            $this->option_name . '_general',
+            array( 'label_for' => $this->option_name . '_apikey' )
+        );
+
+
+        register_setting( $this->plugin_name, $this->option_name . '_sentiment', array( $this, $this->option_name . '_sanitize_option' ) );
+        register_setting( $this->plugin_name, $this->option_name . '_emotion', array( $this, $this->option_name . '_sanitize_option' ) );
+        register_setting( $this->plugin_name, $this->option_name . '_apikey', array( $this, $this->option_name . '_sanitize_text' ) );
 
     }
 
@@ -300,6 +308,27 @@ class Blobinator_Admin {
 
         echo '<p>' . __( 'Please change the settings accordingly.', 'blobinator' ) . '</p>';
 
+    }
+
+
+    /**
+     * Render the text input field for apikey option
+     *
+     * @since  1.3.2
+     */
+    public function blobinator_apikey_cb() {
+
+        $apikey = get_option( $this->option_name . '_apikey' );
+
+        ?>
+
+        <fieldset>
+            <label>
+                <input type="text" name="<?php echo $this->option_name . '_apikey' ?>" id="<?php echo $this->option_name . '_apikey' ?>" value="<?php echo $apikey; ?>">
+            </label>
+        </fieldset>
+
+        <?php
     }
 
     /**
@@ -356,17 +385,32 @@ class Blobinator_Admin {
     }
 
     /**
-     * Sanitize the text  value before being saved to database
+     * Sanitize the text value before being saved to database
+     * TODO: replace with wordpress sanitize option function
      *
      * @param  string $text $_POST value
      * @since  1.0.0
      * @return string           Sanitized value
      */
-    public function blobinator_sanitize_display( $text ) {
+    public function blobinator_sanitize_option( $text ) {
         if ( in_array( $text, array( 'yes', 'no' ), true ) ) {
             return $text;
         }
     }
+
+    /**
+     * Sanitize the text value before being saved to database
+     *
+     * @param  string $text $_POST value
+     * @since  1.3.2
+     * @return string           Sanitized value
+     */
+    public function blobinator_sanitize_text( $text ) {
+
+        return sanitize_text_field( $text );
+
+    }
+
 
     /**
      * Add blobinator meta box to edit post page
