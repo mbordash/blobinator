@@ -25,7 +25,7 @@ class Blobinator_Admin {
     private $option_name = 'blobinator';
 
     protected $api_host = 'https://www.blobinator.com';
-    //protected $api_host         = 'http://wp-blobinator:8080';
+    //protected $api_host         = 'http://localhost:8888';
     protected $api_path         = '/api/blobinator';
     protected $api_manager_path = '/';
 
@@ -80,10 +80,6 @@ class Blobinator_Admin {
 		 * class.
 		 */
 
-        wp_enqueue_style( $this->plugin_name . 'nvd3', plugin_dir_url( __FILE__ ) . 'css/nv.d3.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/blobinator-admin.css', array(), $this->version, 'all' );
-        wp_enqueue_style( $this->plugin_name . '-jquery-ui', plugin_dir_url( __FILE__ ) . 'css/jquery-ui.min.css', array(), $this->version, 'all' );
-
     }
 
 	/**
@@ -104,7 +100,11 @@ class Blobinator_Admin {
 		 * class.
 		 */
 
-        wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js', array( 'jquery' ), $this->version, true );
+        wp_register_script(
+            $this->plugin_name . '_sidebar',
+            plugins_url( 'js/blobinator-admin-panel/build/index.js', __FILE__ ),
+            array( 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-element', 'wp-components', 'wp-compose' )
+        );
 
         $blobinator_local_arr = array(
             'ajaxurl'   => admin_url( 'admin-ajax.php' ),
@@ -113,35 +113,11 @@ class Blobinator_Admin {
             'apikey'    => get_option( $this->option_name . '_apikey' )
         );
 
-        wp_localize_script( $this->plugin_name, 'blobinatorAjaxObject', $blobinator_local_arr );
-
-		wp_enqueue_script( $this->plugin_name);
-
-        wp_enqueue_script( $this->plugin_name . '-d3', plugin_dir_url( __FILE__ ) . 'js/d3.v3.min.js', array( 'jquery' ), $this->version, true );
-        wp_enqueue_script( $this->plugin_name . '-nvd3', plugin_dir_url( __FILE__ ) . 'js/nv.d3.min.js', array( $this->plugin_name . '-d3' ), $this->version, true );
-        wp_enqueue_script( 'jquery-ui-dialog' );
+        wp_localize_script( $this->plugin_name . '_sidebar', 'blobinatorAjaxObject', $blobinator_local_arr );
+        wp_enqueue_script( $this->plugin_name . '_sidebar' );
 
 	}
 
-    public function blobinator_add_button( $plugin_array ) {
-
-        $plugin_array['blobinator'] = plugin_dir_url( __FILE__ ) . 'js/blobinator-admin.js';
-        return $plugin_array;
-
-    }
-
-    public function blobinator_register_button( $buttons ) {
-
-        array_push( $buttons, 'blobinator' );
-        return $buttons;
-
-    }
-
-    public function blobinator_create_results_div( ) {
-
-        include_once 'partials/blobinator-analyze-display-box.php';
-
-    }
 
     /**
      * Handle ajax request for text processing and display
@@ -170,10 +146,7 @@ class Blobinator_Admin {
     public function blobinator_cognitive( $textToAnalyze, $service, $postId ) {
 
         //get and check API key exists, pass key along server side request
-        $blobinatorApiKey       = 'wc_order_58773985ef2e1_am_Vu6R0EbYeLPE';
-        $blobinatorApiEmail     = 'trial_key@blobinator.com';
-        $blobinatorProductId    = 'Blobinator Content Analyzer - Free';
-        $blobinatorInstanceId   = 'gUgGHLFPjl2V';
+        $blobinatorApiKey       = get_option( $this->option_name . '_apikey' ) ? get_option( $this->option_name . '_apikey' ) : 'wc_order_58773985ef2e1_am_Vu6R0EbYeLPE';
 
         if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
 
@@ -182,29 +155,29 @@ class Blobinator_Admin {
 
             return json_encode($response_array);
 
-            wp_die();
-
         }
 
         if ( isset( $textToAnalyze ) && $textToAnalyze !== '' ) {
 
-            $textToAnalyze  = urlencode( sanitize_text_field( $textToAnalyze ) );
+            $textToAnalyze  = urlencode( sanitize_text_field( $textToAnalyze  ) );
             $service        = sanitize_text_field( $service );
             $postId         = sanitize_text_field( $postId );
 
             $requestBody = array(
                 'blobinator_text_to_analyze'    => $textToAnalyze,
+                'api_key'                       => $blobinatorApiKey,
                 'service'                       => $service,
             );
 
             $opts = array(
                 'body'      => $requestBody,
-                'headers'   => 'Content-type: application/x-www-form-urlencoded'
+                'headers'   => 'Content-type: application/x-www-form-urlencoded',
+                'timeout'   => 45,
             );
 
             $response = wp_remote_post($this->api_host . $this->api_path, $opts);
 
-            if( $response['response']['code'] === 200 ) {
+            if( !is_wp_error( $response ) ) {
 
                 update_post_meta( $postId, $service, $response['body'] );
 
@@ -218,7 +191,7 @@ class Blobinator_Admin {
                 $response_array['status'] = "error";
                 $response_array['message'] = "Something went wrong with this request. Code received: " . $response['response']['code'];
 
-                return json_encode($response_array);
+                return $response_array;
 
             }
         }
@@ -425,6 +398,5 @@ class Blobinator_Admin {
         add_meta_box('blobinator-results-box', 'Blobinator Cognitive Content Analyzer', array( $this, 'blobinator_create_results_div' ), 'post','normal','high',null);
 
     }
-
 
 }
