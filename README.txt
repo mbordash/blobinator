@@ -34,7 +34,7 @@ Please give us many stars if you like the cognitive magic!
 
 = Is this a free service? =
 
-Yes. But you can purchase a paid subscription.
+Yes. You will get 100 queries a day for free. You can purchase a paid subscription for $5 at https://www.blobinator.com
 
 = Do you have a paid version? =
 
