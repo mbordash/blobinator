@@ -3,8 +3,8 @@ Contributors: mbordash
 Donate link: http://www.blobinator.com
 Tags: cognitive, article, admin, post, watson, content, seo, tagging, automatic, auto tag
 Requires at least: 5.0
-Tested up to: 5.4
-Stable tag: 2.0
+Tested up to: 5.5.1
+Stable tag: 2.2
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -50,6 +50,9 @@ Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion 
 2. This screen shot depicts the Blobinator button now appearing in your content editing form.
 
 == Changelog ==
+
+= 2.1 =
+* Introduces support for WordPress 5.5 as well as some bug fixes/enhancements
 
 = 2.0 =
 * Introduces support for WordPress 5.4 as well as some bug fixes/enhancements
