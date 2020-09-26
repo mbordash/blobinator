@@ -23,7 +23,6 @@
 class Blobinator_Admin {
 
     private $option_name = 'blobinator';
-
     protected $api_host = 'https://www.blobinator.com';
     //protected $api_host         = 'http://localhost:8888';
     protected $api_path         = '/api/blobinator';

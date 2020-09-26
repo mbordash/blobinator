@@ -15,7 +15,7 @@ const MyDisabled = withState( {
         const content = select( 'core/editor' ).getEditedPostAttribute( 'content' ).trim();
         const security = blobinatorAjaxObject.security;
 
-        let txtToAnalyze = jQuery( '<div>' + title + ' ' + content + '</div>' ).text();
+        let txtToAnalyze = jQuery( '<div>' + title + ' ' + content + '</div>' ).text().substring(0,1500);
 
         txtToAnalyze = txtToAnalyze.replace(/[^0-9a-z\s]/gi, '');
         txtToAnalyze = txtToAnalyze.replace(/\u00A0/g, ' ');

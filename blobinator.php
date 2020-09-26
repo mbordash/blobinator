@@ -10,7 +10,7 @@
  * Plugin Name:       Cognitive Content Analyzer
  * Plugin URI:        http://www.blobinator.com
  * Description:       Plugin for discovering insights from your content. Helpful for editing and tagging your posts and pages. Powered by IBM Watson Customer Engagement.
- * Version:           2.0
+ * Version:           2.2
  * Author:            Michael Bordash
  * Author URI:        https://github.com/mbordash
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.en.html

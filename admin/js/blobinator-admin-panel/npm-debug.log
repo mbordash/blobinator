@@ -1,0 +1,780 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '@wordpress/scripts',
+1 verbose cli   '--save-dev' ]
+2 info using npm@2.0.0
+3 info using node@v0.10.32
+4 verbose node symlink /usr/local/bin/node
+5 warn package.json blobinator-admin-panel@1.0.0 No description
+6 warn package.json blobinator-admin-panel@1.0.0 No repository field.
+7 warn package.json blobinator-admin-panel@1.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ '@wordpress/scripts', null ]
+10 verbose cache add spec="@wordpress/scripts" args=["@wordpress/scripts",null]
+11 verbose parsed spec { raw: '@wordpress/scripts',
+11 verbose parsed spec   scope: '@wordpress',
+11 verbose parsed spec   name: '@wordpress/scripts',
+11 verbose parsed spec   rawSpec: '',
+11 verbose parsed spec   spec: '*',
+11 verbose parsed spec   type: 'range' }
+12 verbose parsed spec { raw: '@wordpress/scripts',
+12 verbose parsed spec   scope: '@wordpress',
+12 verbose parsed spec   name: '@wordpress/scripts',
+12 verbose parsed spec   rawSpec: '',
+12 verbose parsed spec   spec: '*',
+12 verbose parsed spec   type: 'range' }
+13 verbose addNamed [ '@wordpress/scripts', '*' ]
+14 verbose addNamed [ null, '*' ]
+15 silly lockFile 235ea031-wordpress-scripts @wordpress/scripts@*
+16 verbose lock @wordpress/scripts@* /Users/michaelbordash/.npm/235ea031-wordpress-scripts.lock
+17 silly addNameRange { name: '@wordpress/scripts', range: '*', hasData: false }
+18 silly mapToRegistry scope @wordpress
+19 verbose mapToRegistry no registry URL found for scope @wordpress
+20 verbose mapToRegistry name @wordpress%2fscripts
+21 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fscripts
+22 verbose request on initialization, where is /@wordpress%2fscripts
+23 verbose request after pass 1, where is /@wordpress%2fscripts
+24 verbose request url raw /@wordpress%2fscripts
+25 verbose request resolving registry [ 'https://registry.npmjs.org/', './@wordpress%2fscripts' ]
+26 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2fscripts
+27 verbose request no auth needed
+28 info attempt registry request try #1 at 23:22:49
+29 verbose request id eb74885665cc71a9
+30 http request GET https://registry.npmjs.org/@wordpress%2fscripts
+31 http 200 https://registry.npmjs.org/@wordpress%2fscripts
+32 silly registry.get cb [ 200,
+32 silly registry.get   { date: 'Mon, 06 Jul 2020 03:22:50 GMT',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'transfer-encoding': 'chunked',
+32 silly registry.get     connection: 'keep-alive',
+32 silly registry.get     'set-cookie': [ '__cfduid=d8d64f2e4f699c90ce1b51a7474fa42c41594005770; expires=Wed, 05-Aug-20 03:22:50 GMT; path=/; domain=.npmjs.org; HttpOnly; SameSite=Lax' ],
+32 silly registry.get     'cf-ray': '5ae6341f09f57411-IAD',
+32 silly registry.get     age: '4646',
+32 silly registry.get     'cache-control': 'public, max-age=300',
+32 silly registry.get     etag: 'W/"2e97b999e80fc6f8a88fd1e395c7f882"',
+32 silly registry.get     'last-modified': 'Wed, 24 Jun 2020 16:20:08 GMT',
+32 silly registry.get     vary: 'accept-encoding, accept',
+32 silly registry.get     'cf-cache-status': 'HIT',
+32 silly registry.get     'cf-request-id': '03c3bee7630000741119282200000001',
+32 silly registry.get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
+32 silly registry.get     server: 'cloudflare',
+32 silly registry.get     'content-encoding': 'gzip' } ]
+33 silly addNameRange number 2 { name: '@wordpress/scripts', range: '*', hasData: true }
+34 silly addNameRange versions [ '@wordpress/scripts',
+34 silly addNameRange   [ '1.0.1-0',
+34 silly addNameRange     '1.0.0',
+34 silly addNameRange     '1.0.1',
+34 silly addNameRange     '1.0.2',
+34 silly addNameRange     '1.1.0',
+34 silly addNameRange     '1.1.1',
+34 silly addNameRange     '1.1.2',
+34 silly addNameRange     '1.1.3',
+34 silly addNameRange     '1.1.4',
+34 silly addNameRange     '1.1.5',
+34 silly addNameRange     '1.1.6',
+34 silly addNameRange     '1.2.0',
+34 silly addNameRange     '2.0.0',
+34 silly addNameRange     '2.0.1',
+34 silly addNameRange     '2.0.2',
+34 silly addNameRange     '2.0.3',
+34 silly addNameRange     '2.1.0',
+34 silly addNameRange     '2.2.0',
+34 silly addNameRange     '2.2.1',
+34 silly addNameRange     '2.3.0',
+34 silly addNameRange     '2.3.1',
+34 silly addNameRange     '2.4.0',
+34 silly addNameRange     '2.4.1',
+34 silly addNameRange     '2.4.2',
+34 silly addNameRange     '2.4.3',
+34 silly addNameRange     '2.4.4',
+34 silly addNameRange     '2.5.0',
+34 silly addNameRange     '3.0.0',
+34 silly addNameRange     '3.1.0',
+34 silly addNameRange     '3.2.0',
+34 silly addNameRange     '3.2.1',
+34 silly addNameRange     '3.3.0',
+34 silly addNameRange     '3.4.0',
+34 silly addNameRange     '4.0.0',
+34 silly addNameRange     '4.1.0',
+34 silly addNameRange     '5.0.0',
+34 silly addNameRange     '5.0.1',
+34 silly addNameRange     '5.1.0',
+34 silly addNameRange     '6.0.0',
+34 silly addNameRange     '6.1.0',
+34 silly addNameRange     '6.1.1',
+34 silly addNameRange     '6.2.0',
+34 silly addNameRange     '7.0.0',
+34 silly addNameRange     '7.0.1',
+34 silly addNameRange     '7.1.0',
+34 silly addNameRange     '7.1.1',
+34 silly addNameRange     '7.1.2',
+34 silly addNameRange     '7.1.3',
+34 silly addNameRange     '7.2.0',
+34 silly addNameRange     '8.0.0',
+34 silly addNameRange     '8.0.1',
+34 silly addNameRange     '7.1.4',
+34 silly addNameRange     '9.0.0',
+34 silly addNameRange     '9.1.0',
+34 silly addNameRange     '10.0.0',
+34 silly addNameRange     '11.0.0',
+34 silly addNameRange     '12.0.0-rc.0',
+34 silly addNameRange     '12.0.0' ] ]
+35 verbose addNamed [ '@wordpress/scripts', '12.0.0' ]
+36 verbose addNamed [ '12.0.0', '12.0.0' ]
+37 silly lockFile dac27237-wordpress-scripts-12-0-0 @wordpress/scripts@12.0.0
+38 verbose lock @wordpress/scripts@12.0.0 /Users/michaelbordash/.npm/dac27237-wordpress-scripts-12-0-0.lock
+39 silly lockFile 4018573b-press-scripts-scripts-12-0-0-tgz https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz
+40 verbose lock https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz /Users/michaelbordash/.npm/4018573b-press-scripts-scripts-12-0-0-tgz.lock
+41 verbose addRemoteTarball [ 'https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz',
+41 verbose addRemoteTarball   '207d220464bbb9c1b55bde5ed95f461279945168' ]
+42 info retry fetch attempt 1 at 23:22:50
+43 info attempt registry request try #1 at 23:22:50
+44 http fetch GET https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz
+45 http fetch 200 https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz
+46 silly fetchAndShaCheck shasum 207d220464bbb9c1b55bde5ed95f461279945168
+47 silly lockFile 4018573b-press-scripts-scripts-12-0-0-tgz https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz
+48 silly lockFile 4018573b-press-scripts-scripts-12-0-0-tgz https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz
+49 silly lockFile dac27237-wordpress-scripts-12-0-0 @wordpress/scripts@12.0.0
+50 silly lockFile dac27237-wordpress-scripts-12-0-0 @wordpress/scripts@12.0.0
+51 silly lockFile 235ea031-wordpress-scripts @wordpress/scripts@*
+52 silly lockFile 235ea031-wordpress-scripts @wordpress/scripts@*
+53 silly resolved [ { name: '@wordpress/scripts',
+53 silly resolved     version: '12.0.0',
+53 silly resolved     description: 'Collection of reusable scripts for WordPress development.',
+53 silly resolved     author: { name: 'The WordPress Contributors' },
+53 silly resolved     license: 'GPL-2.0-or-later',
+53 silly resolved     keywords: [ 'wordpress', 'gutenberg', 'scripts' ],
+53 silly resolved     homepage: 'https://github.com/WordPress/gutenberg/tree/master/packages/scripts/README.md',
+53 silly resolved     repository:
+53 silly resolved      { type: 'git',
+53 silly resolved        url: 'git+https://github.com/WordPress/gutenberg.git',
+53 silly resolved        directory: 'packages/scripts' },
+53 silly resolved     bugs: { url: 'https://github.com/WordPress/gutenberg/issues' },
+53 silly resolved     engines: { node: '>=10', npm: '>=6.9' },
+53 silly resolved     bin: { 'wp-scripts': './bin/wp-scripts.js' },
+53 silly resolved     dependencies:
+53 silly resolved      { '@svgr/webpack': '^5.2.0',
+53 silly resolved        '@wordpress/babel-preset-default': '^4.16.0',
+53 silly resolved        '@wordpress/dependency-extraction-webpack-plugin': '^2.8.0',
+53 silly resolved        '@wordpress/eslint-plugin': '^7.1.0',
+53 silly resolved        '@wordpress/jest-preset-default': '^6.2.0',
+53 silly resolved        '@wordpress/npm-package-json-lint-config': '^3.1.0',
+53 silly resolved        '@wordpress/postcss-plugins-preset': '^1.2.0',
+53 silly resolved        '@wordpress/prettier-config': '^0.3.0',
+53 silly resolved        'babel-jest': '^25.3.0',
+53 silly resolved        'babel-loader': '^8.1.0',
+53 silly resolved        chalk: '^4.0.0',
+53 silly resolved        'check-node-version': '^3.1.1',
+53 silly resolved        'clean-webpack-plugin': '^3.0.0',
+53 silly resolved        'cross-spawn': '^5.1.0',
+53 silly resolved        'css-loader': '^3.5.2',
+53 silly resolved        'dir-glob': '^3.0.1',
+53 silly resolved        eslint: '^7.1.0',
+53 silly resolved        'eslint-plugin-markdown': '^1.0.2',
+53 silly resolved        'ignore-emit-webpack-plugin': '^2.0.2',
+53 silly resolved        jest: '^25.3.0',
+53 silly resolved        'jest-puppeteer': '^4.4.0',
+53 silly resolved        markdownlint: '^0.18.0',
+53 silly resolved        'markdownlint-cli': '^0.21.0',
+53 silly resolved        'mini-css-extract-plugin': '^0.9.0',
+53 silly resolved        minimist: '^1.2.0',
+53 silly resolved        'node-sass': '^4.13.1',
+53 silly resolved        'npm-package-json-lint': '^5.0.0',
+53 silly resolved        'postcss-loader': '^3.0.0',
+53 silly resolved        prettier: 'npm:wp-prettier@2.0.5',
+53 silly resolved        puppeteer: 'npm:puppeteer-core@3.0.0',
+53 silly resolved        'read-pkg-up': '^1.0.1',
+53 silly resolved        'resolve-bin': '^0.4.0',
+53 silly resolved        'sass-loader': '^8.0.2',
+53 silly resolved        'source-map-loader': '^0.2.4',
+53 silly resolved        stylelint: '^13.6.0',
+53 silly resolved        'stylelint-config-wordpress': '^17.0.0',
+53 silly resolved        'thread-loader': '^2.1.3',
+53 silly resolved        'url-loader': '^3.0.0',
+53 silly resolved        webpack: '^4.42.0',
+53 silly resolved        'webpack-bundle-analyzer': '^3.6.1',
+53 silly resolved        'webpack-cli': '^3.3.11',
+53 silly resolved        'webpack-livereload-plugin': '^2.3.0' },
+53 silly resolved     publishConfig: { access: 'public' },
+53 silly resolved     gitHead: '8e06f0d212f89adba9099106497117819adefc5a',
+53 silly resolved     _id: '@wordpress/scripts@12.0.0',
+53 silly resolved     _nodeVersion: '12.17.0',
+53 silly resolved     _npmVersion: 'lerna/3.18.2/node@v12.17.0+x64 (darwin)',
+53 silly resolved     dist:
+53 silly resolved      { integrity: 'sha512-nYRPbt9Ii6GZC1irmMRxYENiZ47lUqdl5d5UyUb75MDTmAWdN3e+56lVHFGiGhqflw1AyiU+l1DTJWkGXSPs7w==',
+53 silly resolved        shasum: '207d220464bbb9c1b55bde5ed95f461279945168',
+53 silly resolved        tarball: 'https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz',
+53 silly resolved        fileCount: 43,
+53 silly resolved        unpackedSize: 122532,
+53 silly resolved        'npm-signature': '-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJe8300CRA9TVsSAnZWagAAKQoQAJqml6y4cGfuQcgY1OaX\nzltgm2a8VCym4o8qbv/tu6IUZWKdCI6vPopvLSbp4louPnhWTok+Ld5HERj6\n965bv3yNpC6mj169QPMEcaDDour+3j/4c73NbLNeq4j1xAC6We6xy9ndcT3b\n5c4ryO9aD4KoY8Zh5Rid++svGV8Z+FTLDX65nKlF/QAXas1hvGoFCTdXTHQA\nnKqXgcoOwsCsP5qqCyG3vqUJZcdf8BKtZtHEKKe+ZSHAeWs/xALznEMnxmXe\n4PUlk0KxTwsJxfVf6isew/DrZjJMQMqPfh5gm1d4dDA5G+0Z9p9yKXK63Orn\n788vgcLErm3qw5H/ef/dLxRFMsDI9Hklj2Ta8ApGpOLy8GmdE8GCQJKTyOFX\nt/+ju4jBtmWjGzvGkj1xqoXMm2j+1H0msF0qDVLOamgctN0qbH1pjp+9zWJ9\nZwdBDwlkCYkkrAhgvxWcai4TT0W+jl7VMTJ9CR6BjR9+RSZ+Hl4jjGxoQW0c\n1KqLOaEeU5POSeiB5qoiagSiYu/fHTL4XthWV4Ls6kDOZkByrd2RyheG+RfU\n1j/iXhG5eDvvYyi9MWPLkrRcFJXoBl1FwQTn3MxSWJFy/gIeA/7NbT04kAcZ\n3Eb9nw1qyaJWsTC9Ct3Tt7JUbP2vSJmg1T/G7fsPAIB7wfDnpfSPhuUOG+x3\nooio\r\n=ut0H\r\n-----END PGP SIGNATURE-----\r\n' },
+53 silly resolved     maintainers:
+53 silly resolved      [ [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object],
+53 silly resolved        [Object] ],
+53 silly resolved     _npmUser: { name: 'gziolo', email: 'grzegorz@gziolo.pl' },
+53 silly resolved     directories: {},
+53 silly resolved     _npmOperationalInternal:
+53 silly resolved      { host: 's3://npm-registry-packages',
+53 silly resolved        tmp: 'tmp/scripts_12.0.0_1593015603995_0.5217426173255841' },
+53 silly resolved     _hasShrinkwrap: false,
+53 silly resolved     _shasum: '207d220464bbb9c1b55bde5ed95f461279945168',
+53 silly resolved     _from: '@wordpress/scripts@*',
+53 silly resolved     _resolved: 'https://registry.npmjs.org/@wordpress/scripts/-/scripts-12.0.0.tgz' } ]
+54 info install @wordpress/scripts@12.0.0 into /Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel
+55 info installOne @wordpress/scripts@12.0.0
+56 warn engine @wordpress/scripts@12.0.0: wanted: {"node":">=10","npm":">=6.9"} (current: {"node":"0.10.32","npm":"2.0.0"})
+57 verbose node_modules/@wordpress/scripts unbuild
+58 verbose gentlyRm vacuuming /Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts
+59 verbose tar unpack /Users/michaelbordash/.npm/@wordpress/scripts/12.0.0/package.tgz
+60 silly lockFile b3b5b101-l-node-modules-wordpress-scripts tar:///Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts
+61 verbose lock tar:///Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts /Users/michaelbordash/.npm/b3b5b101-l-node-modules-wordpress-scripts.lock
+62 silly lockFile 7d770f46-press-scripts-12-0-0-package-tgz tar:///Users/michaelbordash/.npm/@wordpress/scripts/12.0.0/package.tgz
+63 verbose lock tar:///Users/michaelbordash/.npm/@wordpress/scripts/12.0.0/package.tgz /Users/michaelbordash/.npm/7d770f46-press-scripts-12-0-0-package-tgz.lock
+64 verbose gentlyRm vacuuming /Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts
+65 silly gunzTarPerm modes [ '755', '644' ]
+66 silly gunzTarPerm extractEntry config/.eslintignore
+67 silly gunzTarPerm extractEntry config/.npmpackagejsonlintignore
+68 silly gunzTarPerm extractEntry config/.stylelintignore
+69 silly gunzTarPerm extractEntry config/.eslintrc-md.js
+70 silly gunzTarPerm extractEntry config/.eslintrc.js
+71 silly gunzTarPerm extractEntry config/.prettierrc.js
+72 silly gunzTarPerm extractEntry config/babel-transform.js
+73 silly gunzTarPerm extractEntry scripts/build.js
+74 silly gunzTarPerm extractEntry scripts/check-engines.js
+75 silly gunzTarPerm extractEntry scripts/check-licenses.js
+76 silly gunzTarPerm extractEntry utils/cli.js
+77 silly gunzTarPerm extractEntry utils/config.js
+78 silly gunzTarPerm extractEntry scripts/env.js
+79 silly gunzTarPerm extractEntry utils/file.js
+80 silly gunzTarPerm extractEntry scripts/format-js.js
+81 silly gunzTarPerm extractEntry config/fix-style-webpack-plugin/index.js
+82 silly gunzTarPerm extractEntry utils/index.js
+83 silly gunzTarPerm extractEntry utils/test/index.js
+84 silly gunzTarPerm extractEntry config/jest-e2e.config.js
+85 silly gunzTarPerm extractEntry config/jest-unit.config.js
+86 silly gunzTarPerm extractEntry scripts/lint-js.js
+87 silly gunzTarPerm extractEntry scripts/lint-md-docs.js
+88 silly gunzTarPerm extractEntry scripts/lint-md-js.js
+89 silly gunzTarPerm extractEntry scripts/lint-pkg-json.js
+90 silly gunzTarPerm extractEntry scripts/lint-style.js
+91 silly gunzTarPerm extractEntry utils/package.js
+92 silly gunzTarPerm extractEntry scripts/packages-update.js
+93 silly gunzTarPerm extractEntry utils/process.js
+94 silly gunzTarPerm extractEntry config/puppeteer.config.js
+95 silly gunzTarPerm extractEntry scripts/start.js
+96 silly gunzTarPerm extractEntry scripts/test-e2e.js
+97 silly gunzTarPerm extractEntry scripts/test-unit-jest.js
+98 silly gunzTarPerm extractEntry scripts/test-unit-js.js
+99 silly gunzTarPerm extractEntry config/webpack.config.js
+100 silly gunzTarPerm extractEntry bin/wp-scripts.js
+101 silly gunzTarPerm extractEntry config/.markdownlint.json
+102 silly gunzTarPerm extractEntry config/.stylelintrc.json
+103 silly gunzTarPerm extractEntry config/npmpackagejsonlint.json
+104 silly gunzTarPerm extractEntry package.json
+105 silly gunzTarPerm extractEntry CHANGELOG.md
+106 silly gunzTarPerm extractEntry LICENSE.md
+107 silly gunzTarPerm extractEntry README.md
+108 silly gunzTarPerm extractEntry config/docker-compose.override.yml.template
+109 silly lockFile b3b5b101-l-node-modules-wordpress-scripts tar:///Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts
+110 silly lockFile b3b5b101-l-node-modules-wordpress-scripts tar:///Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel/node_modules/@wordpress/scripts
+111 silly lockFile 7d770f46-press-scripts-12-0-0-package-tgz tar:///Users/michaelbordash/.npm/@wordpress/scripts/12.0.0/package.tgz
+112 silly lockFile 7d770f46-press-scripts-12-0-0-package-tgz tar:///Users/michaelbordash/.npm/@wordpress/scripts/12.0.0/package.tgz
+113 info preinstall @wordpress/scripts@12.0.0
+114 verbose readDependencies using package.json deps
+115 verbose readDependencies using package.json deps
+116 verbose cache add [ '@wordpress/dependency-extraction-webpack-plugin@^2.8.0',
+116 verbose cache add   null ]
+117 verbose cache add spec="@wordpress/dependency-extraction-webpack-plugin@^2.8.0" args=["@wordpress/dependency-extraction-webpack-plugin@^2.8.0",null]
+118 verbose parsed spec { raw: '@wordpress/dependency-extraction-webpack-plugin@^2.8.0',
+118 verbose parsed spec   scope: '@wordpress',
+118 verbose parsed spec   name: '@wordpress/dependency-extraction-webpack-plugin',
+118 verbose parsed spec   rawSpec: '^2.8.0',
+118 verbose parsed spec   spec: '>=2.8.0 <3.0.0',
+118 verbose parsed spec   type: 'range' }
+119 verbose cache add [ '@wordpress/eslint-plugin@^7.1.0', null ]
+120 verbose cache add spec="@wordpress/eslint-plugin@^7.1.0" args=["@wordpress/eslint-plugin@^7.1.0",null]
+121 verbose parsed spec { raw: '@wordpress/eslint-plugin@^7.1.0',
+121 verbose parsed spec   scope: '@wordpress',
+121 verbose parsed spec   name: '@wordpress/eslint-plugin',
+121 verbose parsed spec   rawSpec: '^7.1.0',
+121 verbose parsed spec   spec: '>=7.1.0 <8.0.0',
+121 verbose parsed spec   type: 'range' }
+122 verbose parsed spec { raw: '@wordpress/dependency-extraction-webpack-plugin@^2.8.0',
+122 verbose parsed spec   scope: '@wordpress',
+122 verbose parsed spec   name: '@wordpress/dependency-extraction-webpack-plugin',
+122 verbose parsed spec   rawSpec: '^2.8.0',
+122 verbose parsed spec   spec: '>=2.8.0 <3.0.0',
+122 verbose parsed spec   type: 'range' }
+123 verbose addNamed [ '@wordpress/dependency-extraction-webpack-plugin',
+123 verbose addNamed   '>=2.8.0 <3.0.0' ]
+124 verbose addNamed [ null, '>=2.8.0 <3.0.0' ]
+125 silly lockFile a614901c-ction-webpack-plugin-2-8-0-3-0-0 @wordpress/dependency-extraction-webpack-plugin@>=2.8.0 <3.0.0
+126 verbose lock @wordpress/dependency-extraction-webpack-plugin@>=2.8.0 <3.0.0 /Users/michaelbordash/.npm/a614901c-ction-webpack-plugin-2-8-0-3-0-0.lock
+127 verbose parsed spec { raw: '@wordpress/eslint-plugin@^7.1.0',
+127 verbose parsed spec   scope: '@wordpress',
+127 verbose parsed spec   name: '@wordpress/eslint-plugin',
+127 verbose parsed spec   rawSpec: '^7.1.0',
+127 verbose parsed spec   spec: '>=7.1.0 <8.0.0',
+127 verbose parsed spec   type: 'range' }
+128 verbose addNamed [ '@wordpress/eslint-plugin', '>=7.1.0 <8.0.0' ]
+129 verbose addNamed [ null, '>=7.1.0 <8.0.0' ]
+130 silly lockFile d51db8fd-dpress-eslint-plugin-7-1-0-8-0-0 @wordpress/eslint-plugin@>=7.1.0 <8.0.0
+131 verbose lock @wordpress/eslint-plugin@>=7.1.0 <8.0.0 /Users/michaelbordash/.npm/d51db8fd-dpress-eslint-plugin-7-1-0-8-0-0.lock
+132 verbose cache add [ '@wordpress/jest-preset-default@^6.2.0', null ]
+133 verbose cache add spec="@wordpress/jest-preset-default@^6.2.0" args=["@wordpress/jest-preset-default@^6.2.0",null]
+134 verbose parsed spec { raw: '@wordpress/jest-preset-default@^6.2.0',
+134 verbose parsed spec   scope: '@wordpress',
+134 verbose parsed spec   name: '@wordpress/jest-preset-default',
+134 verbose parsed spec   rawSpec: '^6.2.0',
+134 verbose parsed spec   spec: '>=6.2.0 <7.0.0',
+134 verbose parsed spec   type: 'range' }
+135 verbose parsed spec { raw: '@wordpress/jest-preset-default@^6.2.0',
+135 verbose parsed spec   scope: '@wordpress',
+135 verbose parsed spec   name: '@wordpress/jest-preset-default',
+135 verbose parsed spec   rawSpec: '^6.2.0',
+135 verbose parsed spec   spec: '>=6.2.0 <7.0.0',
+135 verbose parsed spec   type: 'range' }
+136 verbose addNamed [ '@wordpress/jest-preset-default', '>=6.2.0 <7.0.0' ]
+137 verbose addNamed [ null, '>=6.2.0 <7.0.0' ]
+138 silly lockFile 62908c39--jest-preset-default-6-2-0-7-0-0 @wordpress/jest-preset-default@>=6.2.0 <7.0.0
+139 verbose lock @wordpress/jest-preset-default@>=6.2.0 <7.0.0 /Users/michaelbordash/.npm/62908c39--jest-preset-default-6-2-0-7-0-0.lock
+140 silly addNameRange { name: '@wordpress/dependency-extraction-webpack-plugin',
+140 silly addNameRange   range: '>=2.8.0 <3.0.0',
+140 silly addNameRange   hasData: false }
+141 silly mapToRegistry scope @wordpress
+142 verbose mapToRegistry no registry URL found for scope @wordpress
+143 verbose mapToRegistry name @wordpress%2fdependency-extraction-webpack-plugin
+144 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fdependency-extraction-webpack-plugin
+145 verbose cache add [ '@wordpress/npm-package-json-lint-config@^3.1.0', null ]
+146 verbose cache add spec="@wordpress/npm-package-json-lint-config@^3.1.0" args=["@wordpress/npm-package-json-lint-config@^3.1.0",null]
+147 verbose parsed spec { raw: '@wordpress/npm-package-json-lint-config@^3.1.0',
+147 verbose parsed spec   scope: '@wordpress',
+147 verbose parsed spec   name: '@wordpress/npm-package-json-lint-config',
+147 verbose parsed spec   rawSpec: '^3.1.0',
+147 verbose parsed spec   spec: '>=3.1.0 <4.0.0',
+147 verbose parsed spec   type: 'range' }
+148 verbose cache add [ '@wordpress/postcss-plugins-preset@^1.2.0', null ]
+149 verbose cache add spec="@wordpress/postcss-plugins-preset@^1.2.0" args=["@wordpress/postcss-plugins-preset@^1.2.0",null]
+150 verbose parsed spec { raw: '@wordpress/postcss-plugins-preset@^1.2.0',
+150 verbose parsed spec   scope: '@wordpress',
+150 verbose parsed spec   name: '@wordpress/postcss-plugins-preset',
+150 verbose parsed spec   rawSpec: '^1.2.0',
+150 verbose parsed spec   spec: '>=1.2.0 <2.0.0',
+150 verbose parsed spec   type: 'range' }
+151 verbose cache add [ '@wordpress/prettier-config@^0.3.0', null ]
+152 verbose cache add spec="@wordpress/prettier-config@^0.3.0" args=["@wordpress/prettier-config@^0.3.0",null]
+153 verbose parsed spec { raw: '@wordpress/prettier-config@^0.3.0',
+153 verbose parsed spec   scope: '@wordpress',
+153 verbose parsed spec   name: '@wordpress/prettier-config',
+153 verbose parsed spec   rawSpec: '^0.3.0',
+153 verbose parsed spec   spec: '>=0.3.0 <0.4.0',
+153 verbose parsed spec   type: 'range' }
+154 verbose parsed spec { raw: '@wordpress/npm-package-json-lint-config@^3.1.0',
+154 verbose parsed spec   scope: '@wordpress',
+154 verbose parsed spec   name: '@wordpress/npm-package-json-lint-config',
+154 verbose parsed spec   rawSpec: '^3.1.0',
+154 verbose parsed spec   spec: '>=3.1.0 <4.0.0',
+154 verbose parsed spec   type: 'range' }
+155 verbose addNamed [ '@wordpress/npm-package-json-lint-config', '>=3.1.0 <4.0.0' ]
+156 verbose addNamed [ null, '>=3.1.0 <4.0.0' ]
+157 silly lockFile 12a69dc6-age-json-lint-config-3-1-0-4-0-0 @wordpress/npm-package-json-lint-config@>=3.1.0 <4.0.0
+158 verbose lock @wordpress/npm-package-json-lint-config@>=3.1.0 <4.0.0 /Users/michaelbordash/.npm/12a69dc6-age-json-lint-config-3-1-0-4-0-0.lock
+159 verbose parsed spec { raw: '@wordpress/postcss-plugins-preset@^1.2.0',
+159 verbose parsed spec   scope: '@wordpress',
+159 verbose parsed spec   name: '@wordpress/postcss-plugins-preset',
+159 verbose parsed spec   rawSpec: '^1.2.0',
+159 verbose parsed spec   spec: '>=1.2.0 <2.0.0',
+159 verbose parsed spec   type: 'range' }
+160 verbose addNamed [ '@wordpress/postcss-plugins-preset', '>=1.2.0 <2.0.0' ]
+161 verbose addNamed [ null, '>=1.2.0 <2.0.0' ]
+162 silly lockFile 54ca7f21-stcss-plugins-preset-1-2-0-2-0-0 @wordpress/postcss-plugins-preset@>=1.2.0 <2.0.0
+163 verbose lock @wordpress/postcss-plugins-preset@>=1.2.0 <2.0.0 /Users/michaelbordash/.npm/54ca7f21-stcss-plugins-preset-1-2-0-2-0-0.lock
+164 verbose request on initialization, where is /@wordpress%2fdependency-extraction-webpack-plugin
+165 verbose request after pass 1, where is /@wordpress%2fdependency-extraction-webpack-plugin
+166 verbose request url raw /@wordpress%2fdependency-extraction-webpack-plugin
+167 verbose request resolving registry [ 'https://registry.npmjs.org/',
+167 verbose request   './@wordpress%2fdependency-extraction-webpack-plugin' ]
+168 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2fdependency-extraction-webpack-plugin
+169 verbose request no auth needed
+170 info attempt registry request try #1 at 23:22:50
+171 http request GET https://registry.npmjs.org/@wordpress%2fdependency-extraction-webpack-plugin
+172 verbose cache add [ 'babel-jest@^25.3.0', null ]
+173 verbose cache add spec="babel-jest@^25.3.0" args=["babel-jest@^25.3.0",null]
+174 verbose parsed spec { raw: 'babel-jest@^25.3.0',
+174 verbose parsed spec   scope: null,
+174 verbose parsed spec   name: 'babel-jest',
+174 verbose parsed spec   rawSpec: '^25.3.0',
+174 verbose parsed spec   spec: '>=25.3.0 <26.0.0',
+174 verbose parsed spec   type: 'range' }
+175 verbose cache add [ 'babel-loader@^8.1.0', null ]
+176 verbose cache add spec="babel-loader@^8.1.0" args=["babel-loader@^8.1.0",null]
+177 verbose parsed spec { raw: 'babel-loader@^8.1.0',
+177 verbose parsed spec   scope: null,
+177 verbose parsed spec   name: 'babel-loader',
+177 verbose parsed spec   rawSpec: '^8.1.0',
+177 verbose parsed spec   spec: '>=8.1.0 <9.0.0',
+177 verbose parsed spec   type: 'range' }
+178 verbose parsed spec { raw: '@wordpress/prettier-config@^0.3.0',
+178 verbose parsed spec   scope: '@wordpress',
+178 verbose parsed spec   name: '@wordpress/prettier-config',
+178 verbose parsed spec   rawSpec: '^0.3.0',
+178 verbose parsed spec   spec: '>=0.3.0 <0.4.0',
+178 verbose parsed spec   type: 'range' }
+179 verbose addNamed [ '@wordpress/prettier-config', '>=0.3.0 <0.4.0' ]
+180 verbose addNamed [ null, '>=0.3.0 <0.4.0' ]
+181 silly lockFile 4f9d7763-ress-prettier-config-0-3-0-0-4-0 @wordpress/prettier-config@>=0.3.0 <0.4.0
+182 verbose lock @wordpress/prettier-config@>=0.3.0 <0.4.0 /Users/michaelbordash/.npm/4f9d7763-ress-prettier-config-0-3-0-0-4-0.lock
+183 silly addNameRange { name: '@wordpress/eslint-plugin',
+183 silly addNameRange   range: '>=7.1.0 <8.0.0',
+183 silly addNameRange   hasData: false }
+184 silly mapToRegistry scope @wordpress
+185 verbose mapToRegistry no registry URL found for scope @wordpress
+186 verbose mapToRegistry name @wordpress%2feslint-plugin
+187 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2feslint-plugin
+188 silly addNameRange { name: '@wordpress/jest-preset-default',
+188 silly addNameRange   range: '>=6.2.0 <7.0.0',
+188 silly addNameRange   hasData: false }
+189 silly mapToRegistry scope @wordpress
+190 verbose mapToRegistry no registry URL found for scope @wordpress
+191 verbose mapToRegistry name @wordpress%2fjest-preset-default
+192 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fjest-preset-default
+193 verbose parsed spec { raw: 'babel-jest@^25.3.0',
+193 verbose parsed spec   scope: null,
+193 verbose parsed spec   name: 'babel-jest',
+193 verbose parsed spec   rawSpec: '^25.3.0',
+193 verbose parsed spec   spec: '>=25.3.0 <26.0.0',
+193 verbose parsed spec   type: 'range' }
+194 verbose addNamed [ 'babel-jest', '>=25.3.0 <26.0.0' ]
+195 verbose addNamed [ null, '>=25.3.0 <26.0.0' ]
+196 silly lockFile 647761fd-babel-jest-25-3-0-26-0-0 babel-jest@>=25.3.0 <26.0.0
+197 verbose lock babel-jest@>=25.3.0 <26.0.0 /Users/michaelbordash/.npm/647761fd-babel-jest-25-3-0-26-0-0.lock
+198 verbose cache add [ 'chalk@^4.0.0', null ]
+199 verbose cache add spec="chalk@^4.0.0" args=["chalk@^4.0.0",null]
+200 verbose parsed spec { raw: 'chalk@^4.0.0',
+200 verbose parsed spec   scope: null,
+200 verbose parsed spec   name: 'chalk',
+200 verbose parsed spec   rawSpec: '^4.0.0',
+200 verbose parsed spec   spec: '>=4.0.0 <5.0.0',
+200 verbose parsed spec   type: 'range' }
+201 verbose cache add [ 'check-node-version@^3.1.1', null ]
+202 verbose cache add spec="check-node-version@^3.1.1" args=["check-node-version@^3.1.1",null]
+203 verbose parsed spec { raw: 'check-node-version@^3.1.1',
+203 verbose parsed spec   scope: null,
+203 verbose parsed spec   name: 'check-node-version',
+203 verbose parsed spec   rawSpec: '^3.1.1',
+203 verbose parsed spec   spec: '>=3.1.1 <4.0.0',
+203 verbose parsed spec   type: 'range' }
+204 verbose parsed spec { raw: 'babel-loader@^8.1.0',
+204 verbose parsed spec   scope: null,
+204 verbose parsed spec   name: 'babel-loader',
+204 verbose parsed spec   rawSpec: '^8.1.0',
+204 verbose parsed spec   spec: '>=8.1.0 <9.0.0',
+204 verbose parsed spec   type: 'range' }
+205 verbose addNamed [ 'babel-loader', '>=8.1.0 <9.0.0' ]
+206 verbose addNamed [ null, '>=8.1.0 <9.0.0' ]
+207 silly lockFile dd5318af-babel-loader-8-1-0-9-0-0 babel-loader@>=8.1.0 <9.0.0
+208 verbose lock babel-loader@>=8.1.0 <9.0.0 /Users/michaelbordash/.npm/dd5318af-babel-loader-8-1-0-9-0-0.lock
+209 silly addNameRange { name: '@wordpress/npm-package-json-lint-config',
+209 silly addNameRange   range: '>=3.1.0 <4.0.0',
+209 silly addNameRange   hasData: false }
+210 silly mapToRegistry scope @wordpress
+211 verbose mapToRegistry no registry URL found for scope @wordpress
+212 verbose mapToRegistry name @wordpress%2fnpm-package-json-lint-config
+213 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fnpm-package-json-lint-config
+214 silly addNameRange { name: '@wordpress/postcss-plugins-preset',
+214 silly addNameRange   range: '>=1.2.0 <2.0.0',
+214 silly addNameRange   hasData: false }
+215 silly mapToRegistry scope @wordpress
+216 verbose mapToRegistry no registry URL found for scope @wordpress
+217 verbose mapToRegistry name @wordpress%2fpostcss-plugins-preset
+218 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fpostcss-plugins-preset
+219 verbose request on initialization, where is /@wordpress%2feslint-plugin
+220 verbose request after pass 1, where is /@wordpress%2feslint-plugin
+221 verbose request url raw /@wordpress%2feslint-plugin
+222 verbose request resolving registry [ 'https://registry.npmjs.org/',
+222 verbose request   './@wordpress%2feslint-plugin' ]
+223 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2feslint-plugin
+224 verbose request no auth needed
+225 info attempt registry request try #1 at 23:22:50
+226 http request GET https://registry.npmjs.org/@wordpress%2feslint-plugin
+227 verbose request on initialization, where is /@wordpress%2fjest-preset-default
+228 verbose request after pass 1, where is /@wordpress%2fjest-preset-default
+229 verbose request url raw /@wordpress%2fjest-preset-default
+230 verbose request resolving registry [ 'https://registry.npmjs.org/',
+230 verbose request   './@wordpress%2fjest-preset-default' ]
+231 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2fjest-preset-default
+232 verbose request no auth needed
+233 info attempt registry request try #1 at 23:22:50
+234 http request GET https://registry.npmjs.org/@wordpress%2fjest-preset-default
+235 verbose parsed spec { raw: 'chalk@^4.0.0',
+235 verbose parsed spec   scope: null,
+235 verbose parsed spec   name: 'chalk',
+235 verbose parsed spec   rawSpec: '^4.0.0',
+235 verbose parsed spec   spec: '>=4.0.0 <5.0.0',
+235 verbose parsed spec   type: 'range' }
+236 verbose addNamed [ 'chalk', '>=4.0.0 <5.0.0' ]
+237 verbose addNamed [ null, '>=4.0.0 <5.0.0' ]
+238 silly lockFile b2154882-chalk-4-0-0-5-0-0 chalk@>=4.0.0 <5.0.0
+239 verbose lock chalk@>=4.0.0 <5.0.0 /Users/michaelbordash/.npm/b2154882-chalk-4-0-0-5-0-0.lock
+240 verbose cache add [ 'clean-webpack-plugin@^3.0.0', null ]
+241 verbose cache add spec="clean-webpack-plugin@^3.0.0" args=["clean-webpack-plugin@^3.0.0",null]
+242 verbose parsed spec { raw: 'clean-webpack-plugin@^3.0.0',
+242 verbose parsed spec   scope: null,
+242 verbose parsed spec   name: 'clean-webpack-plugin',
+242 verbose parsed spec   rawSpec: '^3.0.0',
+242 verbose parsed spec   spec: '>=3.0.0 <4.0.0',
+242 verbose parsed spec   type: 'range' }
+243 verbose cache add [ 'cross-spawn@^5.1.0', null ]
+244 verbose cache add spec="cross-spawn@^5.1.0" args=["cross-spawn@^5.1.0",null]
+245 verbose parsed spec { raw: 'cross-spawn@^5.1.0',
+245 verbose parsed spec   scope: null,
+245 verbose parsed spec   name: 'cross-spawn',
+245 verbose parsed spec   rawSpec: '^5.1.0',
+245 verbose parsed spec   spec: '>=5.1.0 <6.0.0',
+245 verbose parsed spec   type: 'range' }
+246 verbose cache add [ 'css-loader@^3.5.2', null ]
+247 verbose cache add spec="css-loader@^3.5.2" args=["css-loader@^3.5.2",null]
+248 verbose parsed spec { raw: 'css-loader@^3.5.2',
+248 verbose parsed spec   scope: null,
+248 verbose parsed spec   name: 'css-loader',
+248 verbose parsed spec   rawSpec: '^3.5.2',
+248 verbose parsed spec   spec: '>=3.5.2 <4.0.0',
+248 verbose parsed spec   type: 'range' }
+249 verbose cache add [ 'dir-glob@^3.0.1', null ]
+250 verbose cache add spec="dir-glob@^3.0.1" args=["dir-glob@^3.0.1",null]
+251 verbose parsed spec { raw: 'dir-glob@^3.0.1',
+251 verbose parsed spec   scope: null,
+251 verbose parsed spec   name: 'dir-glob',
+251 verbose parsed spec   rawSpec: '^3.0.1',
+251 verbose parsed spec   spec: '>=3.0.1 <4.0.0',
+251 verbose parsed spec   type: 'range' }
+252 verbose cache add [ 'eslint@^7.1.0', null ]
+253 verbose cache add spec="eslint@^7.1.0" args=["eslint@^7.1.0",null]
+254 verbose parsed spec { raw: 'eslint@^7.1.0',
+254 verbose parsed spec   scope: null,
+254 verbose parsed spec   name: 'eslint',
+254 verbose parsed spec   rawSpec: '^7.1.0',
+254 verbose parsed spec   spec: '>=7.1.0 <8.0.0',
+254 verbose parsed spec   type: 'range' }
+255 verbose cache add [ 'eslint-plugin-markdown@^1.0.2', null ]
+256 verbose cache add spec="eslint-plugin-markdown@^1.0.2" args=["eslint-plugin-markdown@^1.0.2",null]
+257 verbose parsed spec { raw: 'eslint-plugin-markdown@^1.0.2',
+257 verbose parsed spec   scope: null,
+257 verbose parsed spec   name: 'eslint-plugin-markdown',
+257 verbose parsed spec   rawSpec: '^1.0.2',
+257 verbose parsed spec   spec: '>=1.0.2 <2.0.0',
+257 verbose parsed spec   type: 'range' }
+258 verbose cache add [ 'ignore-emit-webpack-plugin@^2.0.2', null ]
+259 verbose cache add spec="ignore-emit-webpack-plugin@^2.0.2" args=["ignore-emit-webpack-plugin@^2.0.2",null]
+260 verbose parsed spec { raw: 'ignore-emit-webpack-plugin@^2.0.2',
+260 verbose parsed spec   scope: null,
+260 verbose parsed spec   name: 'ignore-emit-webpack-plugin',
+260 verbose parsed spec   rawSpec: '^2.0.2',
+260 verbose parsed spec   spec: '>=2.0.2 <3.0.0',
+260 verbose parsed spec   type: 'range' }
+261 verbose cache add [ 'jest@^25.3.0', null ]
+262 verbose cache add spec="jest@^25.3.0" args=["jest@^25.3.0",null]
+263 verbose parsed spec { raw: 'jest@^25.3.0',
+263 verbose parsed spec   scope: null,
+263 verbose parsed spec   name: 'jest',
+263 verbose parsed spec   rawSpec: '^25.3.0',
+263 verbose parsed spec   spec: '>=25.3.0 <26.0.0',
+263 verbose parsed spec   type: 'range' }
+264 verbose parsed spec { raw: 'check-node-version@^3.1.1',
+264 verbose parsed spec   scope: null,
+264 verbose parsed spec   name: 'check-node-version',
+264 verbose parsed spec   rawSpec: '^3.1.1',
+264 verbose parsed spec   spec: '>=3.1.1 <4.0.0',
+264 verbose parsed spec   type: 'range' }
+265 verbose addNamed [ 'check-node-version', '>=3.1.1 <4.0.0' ]
+266 verbose addNamed [ null, '>=3.1.1 <4.0.0' ]
+267 silly lockFile 99ada73e-check-node-version-3-1-1-4-0-0 check-node-version@>=3.1.1 <4.0.0
+268 verbose lock check-node-version@>=3.1.1 <4.0.0 /Users/michaelbordash/.npm/99ada73e-check-node-version-3-1-1-4-0-0.lock
+269 silly addNameRange { name: '@wordpress/prettier-config',
+269 silly addNameRange   range: '>=0.3.0 <0.4.0',
+269 silly addNameRange   hasData: false }
+270 silly mapToRegistry scope @wordpress
+271 verbose mapToRegistry no registry URL found for scope @wordpress
+272 verbose mapToRegistry name @wordpress%2fprettier-config
+273 verbose mapToRegistry uri https://registry.npmjs.org/@wordpress%2fprettier-config
+274 verbose request on initialization, where is /@wordpress%2fnpm-package-json-lint-config
+275 verbose request after pass 1, where is /@wordpress%2fnpm-package-json-lint-config
+276 verbose request url raw /@wordpress%2fnpm-package-json-lint-config
+277 verbose request resolving registry [ 'https://registry.npmjs.org/',
+277 verbose request   './@wordpress%2fnpm-package-json-lint-config' ]
+278 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2fnpm-package-json-lint-config
+279 verbose request no auth needed
+280 info attempt registry request try #1 at 23:22:50
+281 http request GET https://registry.npmjs.org/@wordpress%2fnpm-package-json-lint-config
+282 verbose request on initialization, where is /@wordpress%2fpostcss-plugins-preset
+283 verbose request after pass 1, where is /@wordpress%2fpostcss-plugins-preset
+284 verbose request url raw /@wordpress%2fpostcss-plugins-preset
+285 verbose request resolving registry [ 'https://registry.npmjs.org/',
+285 verbose request   './@wordpress%2fpostcss-plugins-preset' ]
+286 verbose request after pass 2, where is https://registry.npmjs.org/@wordpress%2fpostcss-plugins-preset
+287 verbose request no auth needed
+288 info attempt registry request try #1 at 23:22:50
+289 http request GET https://registry.npmjs.org/@wordpress%2fpostcss-plugins-preset
+290 verbose parsed spec { raw: 'clean-webpack-plugin@^3.0.0',
+290 verbose parsed spec   scope: null,
+290 verbose parsed spec   name: 'clean-webpack-plugin',
+290 verbose parsed spec   rawSpec: '^3.0.0',
+290 verbose parsed spec   spec: '>=3.0.0 <4.0.0',
+290 verbose parsed spec   type: 'range' }
+291 verbose addNamed [ 'clean-webpack-plugin', '>=3.0.0 <4.0.0' ]
+292 verbose addNamed [ null, '>=3.0.0 <4.0.0' ]
+293 silly lockFile 40e9f964-clean-webpack-plugin-3-0-0-4-0-0 clean-webpack-plugin@>=3.0.0 <4.0.0
+294 verbose lock clean-webpack-plugin@>=3.0.0 <4.0.0 /Users/michaelbordash/.npm/40e9f964-clean-webpack-plugin-3-0-0-4-0-0.lock
+295 verbose parsed spec { raw: 'cross-spawn@^5.1.0',
+295 verbose parsed spec   scope: null,
+295 verbose parsed spec   name: 'cross-spawn',
+295 verbose parsed spec   rawSpec: '^5.1.0',
+295 verbose parsed spec   spec: '>=5.1.0 <6.0.0',
+295 verbose parsed spec   type: 'range' }
+296 verbose addNamed [ 'cross-spawn', '>=5.1.0 <6.0.0' ]
+297 verbose addNamed [ null, '>=5.1.0 <6.0.0' ]
+298 silly lockFile ef927c59-cross-spawn-5-1-0-6-0-0 cross-spawn@>=5.1.0 <6.0.0
+299 verbose lock cross-spawn@>=5.1.0 <6.0.0 /Users/michaelbordash/.npm/ef927c59-cross-spawn-5-1-0-6-0-0.lock
+300 verbose parsed spec { raw: 'css-loader@^3.5.2',
+300 verbose parsed spec   scope: null,
+300 verbose parsed spec   name: 'css-loader',
+300 verbose parsed spec   rawSpec: '^3.5.2',
+300 verbose parsed spec   spec: '>=3.5.2 <4.0.0',
+300 verbose parsed spec   type: 'range' }
+301 verbose addNamed [ 'css-loader', '>=3.5.2 <4.0.0' ]
+302 verbose addNamed [ null, '>=3.5.2 <4.0.0' ]
+303 silly lockFile 33a8b456-css-loader-3-5-2-4-0-0 css-loader@>=3.5.2 <4.0.0
+304 verbose lock css-loader@>=3.5.2 <4.0.0 /Users/michaelbordash/.npm/33a8b456-css-loader-3-5-2-4-0-0.lock
+305 verbose parsed spec { raw: 'dir-glob@^3.0.1',
+305 verbose parsed spec   scope: null,
+305 verbose parsed spec   name: 'dir-glob',
+305 verbose parsed spec   rawSpec: '^3.0.1',
+305 verbose parsed spec   spec: '>=3.0.1 <4.0.0',
+305 verbose parsed spec   type: 'range' }
+306 verbose addNamed [ 'dir-glob', '>=3.0.1 <4.0.0' ]
+307 verbose addNamed [ null, '>=3.0.1 <4.0.0' ]
+308 silly lockFile b9e0a100-dir-glob-3-0-1-4-0-0 dir-glob@>=3.0.1 <4.0.0
+309 verbose lock dir-glob@>=3.0.1 <4.0.0 /Users/michaelbordash/.npm/b9e0a100-dir-glob-3-0-1-4-0-0.lock
+310 verbose parsed spec { raw: 'eslint@^7.1.0',
+310 verbose parsed spec   scope: null,
+310 verbose parsed spec   name: 'eslint',
+310 verbose parsed spec   rawSpec: '^7.1.0',
+310 verbose parsed spec   spec: '>=7.1.0 <8.0.0',
+310 verbose parsed spec   type: 'range' }
+311 verbose addNamed [ 'eslint', '>=7.1.0 <8.0.0' ]
+312 verbose addNamed [ null, '>=7.1.0 <8.0.0' ]
+313 silly lockFile 6adf8682-eslint-7-1-0-8-0-0 eslint@>=7.1.0 <8.0.0
+314 verbose lock eslint@>=7.1.0 <8.0.0 /Users/michaelbordash/.npm/6adf8682-eslint-7-1-0-8-0-0.lock
+315 verbose parsed spec { raw: 'eslint-plugin-markdown@^1.0.2',
+315 verbose parsed spec   scope: null,
+315 verbose parsed spec   name: 'eslint-plugin-markdown',
+315 verbose parsed spec   rawSpec: '^1.0.2',
+315 verbose parsed spec   spec: '>=1.0.2 <2.0.0',
+315 verbose parsed spec   type: 'range' }
+316 verbose addNamed [ 'eslint-plugin-markdown', '>=1.0.2 <2.0.0' ]
+317 verbose addNamed [ null, '>=1.0.2 <2.0.0' ]
+318 silly lockFile 19c312ac-lint-plugin-markdown-1-0-2-2-0-0 eslint-plugin-markdown@>=1.0.2 <2.0.0
+319 verbose lock eslint-plugin-markdown@>=1.0.2 <2.0.0 /Users/michaelbordash/.npm/19c312ac-lint-plugin-markdown-1-0-2-2-0-0.lock
+320 verbose parsed spec { raw: 'ignore-emit-webpack-plugin@^2.0.2',
+320 verbose parsed spec   scope: null,
+320 verbose parsed spec   name: 'ignore-emit-webpack-plugin',
+320 verbose parsed spec   rawSpec: '^2.0.2',
+320 verbose parsed spec   spec: '>=2.0.2 <3.0.0',
+320 verbose parsed spec   type: 'range' }
+321 verbose addNamed [ 'ignore-emit-webpack-plugin', '>=2.0.2 <3.0.0' ]
+322 verbose addNamed [ null, '>=2.0.2 <3.0.0' ]
+323 silly lockFile e5204613--emit-webpack-plugin-2-0-2-3-0-0 ignore-emit-webpack-plugin@>=2.0.2 <3.0.0
+324 verbose lock ignore-emit-webpack-plugin@>=2.0.2 <3.0.0 /Users/michaelbordash/.npm/e5204613--emit-webpack-plugin-2-0-2-3-0-0.lock
+325 verbose cache add [ 'jest-puppeteer@^4.4.0', null ]
+326 verbose cache add spec="jest-puppeteer@^4.4.0" args=["jest-puppeteer@^4.4.0",null]
+327 verbose parsed spec { raw: 'jest-puppeteer@^4.4.0',
+327 verbose parsed spec   scope: null,
+327 verbose parsed spec   name: 'jest-puppeteer',
+327 verbose parsed spec   rawSpec: '^4.4.0',
+327 verbose parsed spec   spec: '>=4.4.0 <5.0.0',
+327 verbose parsed spec   type: 'range' }
+328 verbose cache add [ 'markdownlint@^0.18.0', null ]
+329 verbose cache add spec="markdownlint@^0.18.0" args=["markdownlint@^0.18.0",null]
+330 verbose parsed spec { raw: 'markdownlint@^0.18.0',
+330 verbose parsed spec   scope: null,
+330 verbose parsed spec   name: 'markdownlint',
+330 verbose parsed spec   rawSpec: '^0.18.0',
+330 verbose parsed spec   spec: '>=0.18.0 <0.19.0',
+330 verbose parsed spec   type: 'range' }
+331 verbose cache add [ 'markdownlint-cli@^0.21.0', null ]
+332 verbose cache add spec="markdownlint-cli@^0.21.0" args=["markdownlint-cli@^0.21.0",null]
+333 verbose parsed spec { raw: 'markdownlint-cli@^0.21.0',
+333 verbose parsed spec   scope: null,
+333 verbose parsed spec   name: 'markdownlint-cli',
+333 verbose parsed spec   rawSpec: '^0.21.0',
+333 verbose parsed spec   spec: '>=0.21.0 <0.22.0',
+333 verbose parsed spec   type: 'range' }
+334 verbose cache add [ 'mini-css-extract-plugin@^0.9.0', null ]
+335 verbose cache add spec="mini-css-extract-plugin@^0.9.0" args=["mini-css-extract-plugin@^0.9.0",null]
+336 verbose parsed spec { raw: 'mini-css-extract-plugin@^0.9.0',
+336 verbose parsed spec   scope: null,
+336 verbose parsed spec   name: 'mini-css-extract-plugin',
+336 verbose parsed spec   rawSpec: '^0.9.0',
+336 verbose parsed spec   spec: '>=0.9.0 <0.10.0',
+336 verbose parsed spec   type: 'range' }
+337 verbose cache add [ 'minimist@^1.2.0', null ]
+338 verbose cache add spec="minimist@^1.2.0" args=["minimist@^1.2.0",null]
+339 verbose parsed spec { raw: 'minimist@^1.2.0',
+339 verbose parsed spec   scope: null,
+339 verbose parsed spec   name: 'minimist',
+339 verbose parsed spec   rawSpec: '^1.2.0',
+339 verbose parsed spec   spec: '>=1.2.0 <2.0.0',
+339 verbose parsed spec   type: 'range' }
+340 verbose cache add [ 'node-sass@^4.13.1', null ]
+341 verbose cache add spec="node-sass@^4.13.1" args=["node-sass@^4.13.1",null]
+342 verbose parsed spec { raw: 'node-sass@^4.13.1',
+342 verbose parsed spec   scope: null,
+342 verbose parsed spec   name: 'node-sass',
+342 verbose parsed spec   rawSpec: '^4.13.1',
+342 verbose parsed spec   spec: '>=4.13.1 <5.0.0',
+342 verbose parsed spec   type: 'range' }
+343 verbose cache add [ 'npm-package-json-lint@^5.0.0', null ]
+344 verbose cache add spec="npm-package-json-lint@^5.0.0" args=["npm-package-json-lint@^5.0.0",null]
+345 verbose parsed spec { raw: 'npm-package-json-lint@^5.0.0',
+345 verbose parsed spec   scope: null,
+345 verbose parsed spec   name: 'npm-package-json-lint',
+345 verbose parsed spec   rawSpec: '^5.0.0',
+345 verbose parsed spec   spec: '>=5.0.0 <6.0.0',
+345 verbose parsed spec   type: 'range' }
+346 verbose cache add [ 'postcss-loader@^3.0.0', null ]
+347 verbose cache add spec="postcss-loader@^3.0.0" args=["postcss-loader@^3.0.0",null]
+348 verbose parsed spec { raw: 'postcss-loader@^3.0.0',
+348 verbose parsed spec   scope: null,
+348 verbose parsed spec   name: 'postcss-loader',
+348 verbose parsed spec   rawSpec: '^3.0.0',
+348 verbose parsed spec   spec: '>=3.0.0 <4.0.0',
+348 verbose parsed spec   type: 'range' }
+349 verbose stack Error: Unsupported URL Type: npm:wp-prettier@2.0.5
+349 verbose stack     at parseUrl (/usr/local/lib/node_modules/npm/node_modules/npm-package-arg/npa.js:173:13)
+349 verbose stack     at npa (/usr/local/lib/node_modules/npm/node_modules/npm-package-arg/npa.js:74:12)
+349 verbose stack     at resolver (/usr/local/lib/node_modules/npm/lib/install.js:702:42)
+349 verbose stack     at null._onTimeout (/usr/local/lib/node_modules/npm/lib/install.js:697:7)
+349 verbose stack     at Timer.listOnTimeout [as ontimeout] (timers.js:112:15)
+350 verbose cwd /Users/michaelbordash/blobinator/admin/js/blobinator-admin-panel
+351 error Darwin 19.5.0
+352 error argv "node" "/usr/local/bin/npm" "install" "@wordpress/scripts" "--save-dev"
+353 error node v0.10.32
+354 error npm  v2.0.0
+355 error Unsupported URL Type: npm:wp-prettier@2.0.5
+356 error If you need help, you may report this error at:
+356 error     <http://github.com/npm/npm/issues>
+357 verbose exit [ 1, true ]
