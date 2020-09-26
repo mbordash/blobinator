@@ -16,13 +16,15 @@ if ( arraySize === 3 ) {
 
     if (sentimentScore > 0 ) {
         sentimentText = "positive";
-    } else {
+    } else if (sentimentScore < 0 ) {
         sentimentText = "negative";
+    } else {
+        sentimentText = "neutral";
     }
 }
 
 
-toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> sentiment with an offset of ' + sentimentScore + ' from neutral using a range of -1 to 1.'
+toneAnalysis = 'We detected a <strong>' + sentimentText + '</strong> sentiment for this page.'
 
 jQuery('#sentiment_result').show();
 jQuery('#overall_tone').html(toneAnalysis);
