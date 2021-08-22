@@ -14,5 +14,5 @@ gulp.task('copy', function () {
         '!./admin/js/blobinator-admin-panel/package-lock.json',
         '!./admin/js/blobinator-admin-panel/{src,src/*}',
     ])
-        .pipe(gulp.dest('../blobinator-svn/blobinator/trunk/'));
+        .pipe(gulp.dest('../blobinator-svn/trunk/'));
 });

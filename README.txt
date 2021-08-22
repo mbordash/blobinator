@@ -1,55 +1,72 @@
 === Plugin Name ===
 Contributors: mbordash
-Donate link: http://www.blobinator.com
-Tags: cognitive, article, admin, post, watson, content, seo, tagging, automatic, auto tag
+Donate link: http://www.kontxt.com
+Tags: content generation, content analysis, seo, readability, rewrite, nlg, nlp, copy writer, paraphrase, language, keywords
 Requires at least: 5.0
-Tested up to: 5.5.1
-Stable tag: 2.2
+Tested up to: 5.7.2
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
-Blobinator is a free cognitive content analyzer and tagging plugin providing deep text analysis of your articles, products, and pages. Powered by Watson.
+The KONTXT Content Advisor plugin provides in-depth text analysis on your posts, pages, and product listings.
 
 == Description ==
 
-The Blobinator cognitive content analyzer plugin for WordPress provides deep text analysis of your posts, pages, and product listings. With our cognitive approach to content analysis, you can get an objective review of your tone, discover hidden keywords and concepts buried within your content, and explore the emotions your articles are projecting.   Use these discoveries to adjust your writing style to your target audience and optimize search engine indexing through cognitive automatic tagging and linking related keyword tags to your content. Works with both article content and product descriptions, like WooCommerce.
+Words Matter. Make sure yours don’t suck.
 
-Features of our free WordPress plugin include:
+Boost engagement by using our real-time language optimizer.
+
+The KONTXT Content Advisor WordPress plugin provides in-depth text analysis on your posts, pages, and product listings. Experiment with your words and get an objective review of the tone and emotions of your language and identify hidden keywords and concepts buried inside your content. Use these discoveries to fine-tune your writing style to your target audience and optimize search engine indexing (SEO).
+
+Use the KONTXT Content Analyzer for article content, product descriptions, headlines, email text, you name it!
+
+Free Plugin Features include:
 
 *   Tone & Sentiment analysis (positive, mixed, neutral, negative)
 *   Emotion detection and breakdown
-*   Keyword and related keyword extraction
+*   Discover new keywords
 *   Concept extraction and discovery
-*   Cognitive tagging: automatically tag your content
-
-Please give us many stars if you like the cognitive magic!
+*   Automatically tag your content making it easier to manage
 
 == Installation ==
 
 1. Upload `blobinator.zip` to your Plugins
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. If you want to show Sentiment or Emotions in your public posts, go to Settings > Blobinator
+3. If you want to show Sentiment or Emotions in your public posts, go to Settings > KONTXT Advisor
 
 == Frequently Asked Questions ==
 
 = Is this a free service? =
 
-Yes. You will get 100 queries a day for free. You can purchase a paid subscription for $5 at https://www.blobinator.com
+Yes. You will get 100 queries a day for free. You can purchase a paid subscription with support at https://www.kontxt.com (Contact Us)
 
 = Do you have a paid version? =
 
-Yes, the paid version is available via subscription at https://www.blobinator.com
+Yes, the paid version is available via subscription at https://www.kontxt.com (Contact Us)
 
 = Can I display sentiment or emotion analysis on my public posts?
 
-Yes. Go to Settings > Blobinator and select Yes to display sentiment or emotion on your public content
+Yes. Go to Settings > KONTXT Advisor and select Yes to display sentiment or emotion on your public content
 
 == Screenshots ==
 
-1. This screen shot depicts real-time content analysis for an article after pressing the Blobinator button.
-2. This screen shot depicts the Blobinator button now appearing in your content editing form.
+1. This screen shot depicts real-time Sentiment analysis within the Wordpress Gutenberg editor
+2. This screen shot depicts real-time Keyword analysis within the Wordpress Gutenberg editor
+3. This screen shot depicts real-time Emotion analysis within the Wordpress Gutenberg editor
 
 == Changelog ==
+
+= 3.1.0 =
+* Added NEW emotional content analysis to Gutenberg editor
+* Minor code cleanup
+
+= 3.0.1 =
+* Renamed to KONTXT Advisor powered by RealNetworks KONTXT
+* Added Sentiment Analysis panel to Gutenberg editor
+* Fixed javascript caching issue for panels
+
+= 2.4 =
+* Fixed ajax referrer issue.
 
 = 2.1 =
 * Introduces support for WordPress 5.5 as well as some bug fixes/enhancements

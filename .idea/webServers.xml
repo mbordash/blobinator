@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="7b87ce2c-18c5-4b2f-9bc5-b8979f4c220a" name="Localhost" url="http://localhost">
-        <fileTransfer mountedRoot="$USER_HOME$/wordpress/wp-content/plugins/blobinator" accessType="MOUNT" port="0" />
+        <fileTransfer mountedRoot="$PROJECT_DIR$/../wordpress/wp-content/plugins/blobinator" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>

@@ -2,19 +2,19 @@
 
 /**
  *
- * @link              http://www.blobinator.com
+ * @link              https://kontxt.com
  * @since             1.0.0
- * @package           Blobinator
+ * @package           Kontxt
  *
  * @wordpress-plugin
- * Plugin Name:       Cognitive Content Analyzer
- * Plugin URI:        http://www.blobinator.com
- * Description:       Plugin for discovering insights from your content. Helpful for editing and tagging your posts and pages. Powered by IBM Watson Customer Engagement.
- * Version:           2.2
- * Author:            Michael Bordash
- * Author URI:        https://github.com/mbordash
+ * Plugin Name:       KONTXT Content Advisor
+ * Plugin URI:        https://www.kontxt.com
+ * Description:       Plugin for discovering insights from your content. Helpful for editing and tagging your posts and pages. Powered by RealNetworks KONTXT.
+ * Version:           3.1.0
+ * Author:            RealNetworks KONTXT
+ * Author URI:        https://kontxt.com
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.en.html
- * Text Domain:       blobinator
+ * Text Domain:       kontxt
  * Domain Path:       /languages
  */
 

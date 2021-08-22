@@ -102,7 +102,9 @@ class Blobinator_Admin {
         wp_register_script(
             $this->plugin_name . '_sidebar',
             plugins_url( 'js/blobinator-admin-panel/build/index.js', __FILE__ ),
-            array( 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-element', 'wp-components', 'wp-compose' )
+            array( 'wp-plugins', 'wp-edit-post', 'wp-i18n', 'wp-element', 'wp-components', 'wp-compose' ),
+	        filemtime()
+            
         );
 
         $blobinator_local_arr = array(
@@ -117,7 +119,6 @@ class Blobinator_Admin {
 
 	}
 
-
     /**
      * Handle ajax request for text processing and display
      *
@@ -130,7 +131,8 @@ class Blobinator_Admin {
             wp_die('You are not allowed to be on this page.');
         }
 
-        check_ajax_referer( 'blobinator-ajax-string', 'security', false );
+        //check_ajax_referer( 'blobinator-ajax-string', 'security' );
+	    wp_verify_nonce($_POST['security'], 'blobinator-ajax-string');
 
         if ( isset( $_POST['blobinator_text_to_analyze'] ) && $_POST['blobinator_text_to_analyze'] !== '' ) {
 
@@ -150,7 +152,7 @@ class Blobinator_Admin {
         if ( !isset($blobinatorApiKey) || $blobinatorApiKey === '' ) {
 
             $response_array['status'] = "error";
-            $response_array['message'] = "Your License Key for Blobinator is not set. Please go to Settings > Blobinator Content Analyzer - Free API Key Activation to set your key first.";
+            $response_array['message'] = "Your License Key for KONTXT is not set. Please go to Settings > KONTXT Content Advisor - Free API Key Activation to set your key first.";
 
             return json_encode($response_array);
 
@@ -205,8 +207,8 @@ class Blobinator_Admin {
     public function add_options_page() {
 
         $this->plugin_screen_hook_suffix = add_options_page(
-            __( 'Blobinator Settings', 'blobinator' ),
-            __( 'Blobinator', 'blobinator' ),
+            __( 'KONTXT Content Advisor Settings', 'blobinator' ),
+            __( 'KONTXT', 'blobinator' ),
             'manage_options',
             $this->plugin_name,
             array( $this, 'display_options_page' )
@@ -257,7 +259,7 @@ class Blobinator_Admin {
 
         add_settings_field(
             $this->option_name . '_apikey',
-            __( 'API Key (if you have <a target="_blank" href="https://www.blobinator.com">purchased a subscription</a>)', 'blobinator' ),
+            __( 'API Key (if you have <a target="_blank" href="https://www.kontxt.com">purchased a subscription</a>)', 'blobinator' ),
             array( $this, $this->option_name . '_apikey_cb' ),
             $this->plugin_name,
             $this->option_name . '_general',
@@ -393,8 +395,8 @@ class Blobinator_Admin {
      */
     public function add_blobinator_results_box( ) {
 
-        add_meta_box('blobinator-results-box', 'Blobinator Cognitive Content Analyzer', array( $this, 'blobinator_create_results_div' ), 'page','normal','high',null);
-        add_meta_box('blobinator-results-box', 'Blobinator Cognitive Content Analyzer', array( $this, 'blobinator_create_results_div' ), 'post','normal','high',null);
+        add_meta_box('blobinator-results-box', 'KONTXT Content Advisor', array( $this, 'blobinator_create_results_div' ), 'page','normal','high',null);
+        add_meta_box('blobinator-results-box', 'KONTXT Content Advisor', array( $this, 'blobinator_create_results_div' ), 'post','normal','high',null);
 
     }
 
