@@ -9,7 +9,7 @@
   "author": "Michael Bordash",
   "license": "MIT",
   "devDependencies": {
-    "@wordpress/scripts": "7.2.0"
+    "@wordpress/scripts": "30.19.0"
   },
   "dependencies": {
     "@wordpress/components": "^9.2.2",
